@@ -72,3 +72,27 @@ def register(request):
         return render(request, "myApp/register.html")
     
 
+def designMeal(request):
+
+
+
+    return render(request, "myApp/designMeal.html")
+
+
+def makeRecipe(request):
+    pass
+
+
+def logIngredient(request):
+    pass
+
+
+def saveRecipe(request):
+    pass
+
+
+def removeIngredient(request):
+    pass
+
+
+
