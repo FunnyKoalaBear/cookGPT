@@ -1,0 +1,22 @@
+{% extends 'myApp/layout.html' %}
+
+{% load static %} 
+
+{% block body %}
+
+    <style>
+        body {
+            background-image: url("{% static 'myApp/background3.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            background-position: center;
+        }
+    </style>
+
+    <div class="container">
+        <h1>CookGPT</h1>
+        <button id="design">Click Me</button>
+    </div>
+
+{% endblock %}
