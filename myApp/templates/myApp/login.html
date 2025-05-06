@@ -1,8 +1,9 @@
 {% extends "myApp/layout.html" %}
+{% load static %}
 
 {% block body %}
 
-    <h2>Login</h2>
+    <h2 style="margin-top: 10px;">Login</h2>
 
     {% if messages %}
 
@@ -14,7 +15,13 @@
         
     {% endif %}
 
-    <form action="{% url 'login' %}" method="post">
+    <style>
+        * {
+            margin-left: 5px;
+        }
+    </style>
+
+    <form action="{% url 'login_view' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
             <input autofocus class="form-control" type="text" name="username" placeholder="Username">
@@ -25,6 +32,7 @@
         <input class="btn btn-primary" type="submit" value="Login">
     </form>
 
+    <hr style="width: 400px;">
     Don't have an account? <a href="{% url 'register' %}">Register here.</a>
 
 {% endblock %}
