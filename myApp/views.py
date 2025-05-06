@@ -15,9 +15,17 @@ from django.contrib.auth.decorators import login_required
 
 from .models import User, Ingredient, Pantry, MyRecipe, InstructionStep
 
+#cache control
+from datetime import timedelta
+from django.utils.cache import patch_cache_control
+
+
 
 def index(request):
-    return render(request, "myApp/index.html")
+    response = render(request, 'myApp/index.html')
+    # Set Cache-Control header to cache for 1 day
+    patch_cache_control(response, max_age=86400)  # 86400 seconds = 1 day
+    return response
 
 
 def login_view(request):
@@ -73,9 +81,6 @@ def register(request):
     
 
 def designMeal(request):
-
-
-
     return render(request, "myApp/designMeal.html")
 
 
@@ -83,16 +88,21 @@ def makeRecipe(request):
     pass
 
 
-def logIngredient(request):
-    pass
+def pantry(request):
+    return render(request, "myApp/pantry.html")
+
+
+def meals(request):
+    return render(request, "myApp/meals.html")
 
 
 def saveRecipe(request):
     pass
 
 
-def removeIngredient(request):
+def removeRecipe(request):
     pass
+
 
 
 

@@ -1,0 +1,168 @@
+{% extends 'myApp/layout.html' %}
+
+{% load static %} 
+
+{% block body %}
+
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <style>
+        body {
+            background-color: rgb(245, 232, 53);
+            background-size: cover;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            background-position: center;
+        }
+    </style>
+    
+    
+    <br>
+    <br>
+    
+    <br>
+    
+
+    <div class="min-h-screen p-6">
+        <h1 class="text-3xl font-bold mb-6 text-center">🍽️ Your Pantry</h1>
+      
+        <!-- Centering Wrapper -->
+        <div class="flex justify-center">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 overflow-y-auto max-h-[80vh] px-2 max-w-5xl">
+            
+            <!-- Meal Card -->
+            <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full">
+              <h2 class="text-xl font-semibold mb-2">Vegies & Fruits</h2>
+                
+              <ul class="list-none space-y-2">
+                <li class="flex justify-between items-center border-b pb-1">
+                  <span>Apples - 2 kg</span>
+                  <div class="space-x-2">
+                    <button class="px-2 py-1 bg-green-500 text-white rounded">+</button>
+                    <button class="px-2 py-1 bg-yellow-500 text-white rounded">-</button>
+                    <button class="px-2 py-1 bg-red-500 text-white rounded">🗑️</button>
+                  </div>
+                </li>
+                
+                <li class="flex justify-between items-center border-b pb-1">
+                  <span>Carrots - 500 g</span>
+                  <div class="space-x-2">
+                    <button class="px-2 py-1 bg-green-500 text-white rounded">+</button>
+                    <button class="px-2 py-1 bg-yellow-500 text-white rounded">-</button>
+                    <button class="px-2 py-1 bg-red-500 text-white rounded">🗑️</button>
+                  </div>
+                </li>
+              
+                <!-- Repeat for other items... -->
+              </ul>
+                <br>
+            
+                <!--INSERT INGREDIENT LIST-->
+                <form id="veggie-form">
+                    <input type="text" name="ingredient" placeholder="Add a veggie or fruit" class="border border-gray-300 rounded-lg p-2 mb-1">
+                    
+                    <input type="number" name="quantity" placeholder="Qty" class="border border-gray-300 rounded-lg p-2 w-20">
+                    
+                    <select name="unit" class="border border-gray-300 rounded-lg p-2">
+                        <option value="" disabled selected>Unit</option>
+                        <option value="kg">kg</option>
+                        <option value="g">g</option>
+                        <option value="ml">ml</option>
+                        <option value="l">l</option>
+                        <option value="tsp">tsp</option>
+                        <option value="tbsp">tbsp</option>
+                        <option value="cup">cups</option>
+                        <option value="piece">pieces</option>
+                        <option value="slice">slices</option>
+
+                        <option value="pcs">Pieces</option>
+                    </select>
+
+                    <br>
+                    <button type="submit" class="mt-2 bg-green-600 text-white rounded-lg px-4 py-2">Submit</button>
+                  </form>
+                
+            </div>
+      
+            <!-- Another Card -->
+            <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full">
+              <h2 class="text-xl font-semibold mb-2">Proteins</h2>
+              
+            
+                <!--INSERT INGREDIENT LIST-->
+
+
+            </div>
+      
+          </div>
+          
+        </div>
+
+        <br>
+        
+        <!--Second row -->
+
+        <div class="flex justify-center">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 overflow-y-auto max-h-[80vh] px-2 max-w-5xl">
+                
+                <!-- Meal Card -->
+                <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full">
+                <h2 class="text-xl font-semibold mb-2">Carbs</h2>
+              
+            
+                <!--INSERT INGREDIENT LIST-->
+
+
+                </div>
+        
+                <!-- Another Card -->
+                <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full">
+                <h2 class="text-xl font-semibold mb-2">Sauces & Spices</h2>
+              
+            
+                <!--INSERT INGREDIENT LIST-->
+
+
+                </div>
+        
+            </div>
+                
+        </div>
+
+        <br>
+        <!--Third row-->
+        <div class="flex justify-center">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 overflow-y-auto max-h-[80vh] px-2 max-w-5xl">
+                
+                <!-- Meal Card -->
+                <div class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full">
+                <h2 class="text-xl font-semibold mb-2">Beverages</h2>
+              
+            
+                <!--INSERT INGREDIENT LIST-->
+
+
+                </div>
+        
+                <!-- Another Card -->
+                <div class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full">
+                <h2 class="text-xl font-semibold mb-2">Special</h2>
+              
+            
+                <!--INSERT INGREDIENT LIST-->
+
+
+                </div>
+        
+            </div>
+                
+        </div>
+
+      </div>
+
+
+
+
+{% endblock %}

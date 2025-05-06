@@ -131,3 +131,6 @@ STATICFILES_DIRS = [
 
 
 AUTH_USER_MODEL = 'myApp.User'
+
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'

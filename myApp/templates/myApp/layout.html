@@ -17,7 +17,9 @@
 
                 {% if user.is_authenticated %} 
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
+                        <div class="ml-auto">
+                            <a class="nav-link" href="#" style="text-align: right;"><strong>Hello {{ user.username }}</strong></a>
+                        </div>
                     </li>
                 {% endif %}
 
@@ -29,11 +31,11 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Your Meals</a>
+                        <a class="nav-link" href="{% url 'meals' %}">Your Meals</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pantry</a>
+                        <a class="nav-link" href="{% url 'pantry' %}">Pantry</a>
                     </li>
 
 
