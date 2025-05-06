@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth.decorators import login_required
 
-from .models import User
+from .models import User, Ingredient, Pantry, MyRecipe, InstructionStep
 
 
 def index(request):
@@ -70,3 +70,5 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "myApp/register.html")
+    
+
