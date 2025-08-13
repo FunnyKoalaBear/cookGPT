@@ -11,6 +11,7 @@ urlpatterns = [
     path("logout_view", views.logout_view, name="logout_view"),    
     path("designMeal", views.designMeal, name="designMeal"),
     path("pantry", views.pantry, name="pantry"),
+    path('myApp/pantry/', views.update_pantry, name='update_pantry'),
     path("meals", views.meals, name="meals"),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

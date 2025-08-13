@@ -92,6 +92,16 @@ def pantry(request):
     return render(request, "myApp/pantry.html")
 
 
+@csrf_exempt
+def update_pantry(request):
+    
+    if request.method == "POST":
+       pass
+
+    return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
+
+
+
 def meals(request):
     return render(request, "myApp/meals.html")
 
