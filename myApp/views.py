@@ -93,13 +93,72 @@ def pantry(request):
 
 
 @csrf_exempt
-def update_pantry(request):
-    
+def updatePantry(request):
+
     if request.method == "POST":
-       pass
+        try:
+            data = json.loads(request.body)
+            item = data.get("item")
+            quantity = data.get("quantity")
+            unit = data.get("unit")
+            category = data.get("category")
+        
+            user = request.user
 
-    return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
+            # validating the category
+            validCategories = {
+                'vegies': 'veggies',
+                'proteins': 'proteins',
+                'carbs': 'carbs',
+                'sauces': 'sauces',
+                'special': 'special',
+                'beverage': 'beverage',
+            }
 
+            if category not in validCategories:
+                return JsonResponse({"error": "Invalid category"}, status=400)
+
+            # getting/creating the ingredient
+            item, created = Ingredient.objects.get_or_create(
+                name=item,
+                defaults={
+                    "category": category,
+                    "quantity": quantity,
+                    "unit": unit
+                }
+            )
+
+            if not created:
+                if item.category != category:
+                    item.category = category
+
+                if item.unit != unit:
+                    item.unit = unit
+                
+                item.quantity += quantity
+                item.save()
+            
+            #create a pantry for the user 
+            pantry, _ = Pantry.objects.get_or_create(user=user)
+
+            #access category field 
+            category_field = getattr(pantry, validCategories[category])
+
+            #check if ingredient is already in pantry 
+            if Ingredient not in category_field.all():
+                category_field.add(Ingredient)
+            else:
+                Ingredient.quantity += quantity
+                Ingredient.save()
+            
+
+            return JsonResponse({"status": 200})
+
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
 
 
 def meals(request):
