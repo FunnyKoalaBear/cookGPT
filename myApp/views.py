@@ -80,14 +80,17 @@ def register(request):
         return render(request, "myApp/register.html")
     
 
+@login_required 
 def designMeal(request):
     return render(request, "myApp/designMeal.html")
 
 
+@login_required 
 def makeRecipe(request):
     pass
 
 
+@login_required 
 def pantry(request):
     return render(request, "myApp/pantry.html")
 
@@ -102,20 +105,9 @@ def updatePantry(request):
             item = data.get("item")
             quantity = float(data.get("quantity", 0))
             unit = data.get("unit")
-            category = data.get("category")
-        
+            category = data.get("category", "").strip()
+    
             user = request.user
-
-            # validating the category
-            validCategories = {
-                'vegies': 'Veggies & Fruits',
-                'proteins': 'Proteins',
-                'carbs': 'Carbs',
-                'sauces': 'Sauces & Spices',
-                'special': 'Special',
-                'beverage': 'Beverages',
-            }
-
             
             category_field_mapping = {
                 'Veggies & Fruits': 'vegies',
@@ -129,7 +121,12 @@ def updatePantry(request):
             if category not in category_field_mapping:
                 return JsonResponse({"status": "error", "message": f"Invalid category: {category}"}, status=400)
 
+            #create a pantry for the user 
+            pantry, _ = Pantry.objects.get_or_create(user=user)
+
+            #access correct manyToMany field 
             category_field = getattr(pantry, category_field_mapping[category])
+
 
             # getting/creating the ingredient
             item, created = Ingredient.objects.get_or_create(
@@ -151,12 +148,6 @@ def updatePantry(request):
                 item.quantity += quantity
                 item.save()
             
-            #create a pantry for the user 
-            pantry, _ = Pantry.objects.get_or_create(user=user)
-
-            
-            #access category field 
-            category_field = getattr(pantry, validCategories[category])
 
             #check if ingredient is already in pantry 
             if item not in category_field.all():
@@ -172,18 +163,19 @@ def updatePantry(request):
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
         
-
+@login_required 
 def meals(request):
     return render(request, "myApp/meals.html")
 
 
+@login_required 
 def saveRecipe(request):
     pass
 
 
+@login_required 
 def removeRecipe(request):
     pass
 
 #hi from laptop 
-
 
