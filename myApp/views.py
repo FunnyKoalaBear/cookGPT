@@ -19,7 +19,7 @@ from .models import User, Ingredient, Pantry, MyRecipe, InstructionStep
 from datetime import timedelta
 from django.utils.cache import patch_cache_control
 
-
+allCategories = ['vegies', 'proteins', 'carbs', 'sauces', 'special', 'beverage']
 
 def index(request):
     response = render(request, 'myApp/index.html')
@@ -92,7 +92,33 @@ def makeRecipe(request):
 
 @login_required 
 def pantry(request):
-    return render(request, "myApp/pantry.html")
+    user = request.user
+
+    #get/create the users pantry
+    pantry, _ = Pantry.objects.get_or_create(user=user)
+
+    #dictionary of all categories 
+    pantryData = {}
+
+    for field in allCategories:
+        ingredients = getattr(pantry, field).all()
+
+        #extracting ingredient information
+        #makes arrays ina  dictionary
+        #the arrays hold dictionaries of ingredients 
+        pantryData[field] = [
+            {
+                "name": ing.name,
+                "quantity": ing.quantity,
+                "unit": ing.unit_of_measurement,
+                "category": ing.category
+            }
+            for ing in ingredients
+        ]
+        
+
+
+    return render(request, "myApp/pantry.html", {"pantry": pantryData})
 
 
 @csrf_exempt
@@ -106,6 +132,7 @@ def updatePantry(request):
             quantity = float(data.get("quantity", 0))
             unit = data.get("unit")
             category = data.get("category", "").strip()
+            
     
             user = request.user
             
@@ -133,29 +160,19 @@ def updatePantry(request):
                 name=item,
                 defaults={
                     "category": category,
-                    "quantity": quantity,
+                    "quantity": 0, #add quantity later 
                     "unit_of_measurement": unit
                 }
-            )
-
-            if not created:
-                if item.category != category:
-                    item.category = category
-
-                if item.unit_of_measurement != unit:
-                    item.unit_of_measurement = unit
-
-                item.quantity += quantity
-                item.save()
+            )  
             
-
+            item.category = category
+            item.unit_of_measurement = unit
+            item.quantity += quantity
+            item.save()
+            
             #check if ingredient is already in pantry 
             if item not in category_field.all():
                 category_field.add(item)
-            else:
-                existing_item = category_field.get(pk=item.pk)
-                existing_item.quantity += quantity
-                existing_item.save()
             
             return JsonResponse({"status": 200})
             
@@ -163,6 +180,39 @@ def updatePantry(request):
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
         
+
+@login_required 
+def updateIngredient(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            item = data.get("item")
+            action = data.get("action")    
+            user = request.user
+            
+            ingredient = Ingredient.objects.get(name=item, user=user)
+            
+            if action == "increment":
+                ingredient.quantity += 1
+
+            elif action == "decrement":
+                ingredient.quantity -=1
+
+            elif action == "trash":
+                ingredient.delete()
+                return JsonResponse({"status": 200, "message": f"{item} deleted"})
+            
+            ingredient.save()
+            return JsonResponse({"status": 200, "message": f"{item} updated"})
+        
+        except Ingredient.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "Ingredient not found"}, status=404)
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+
+
+
+
 @login_required 
 def meals(request):
     return render(request, "myApp/meals.html")

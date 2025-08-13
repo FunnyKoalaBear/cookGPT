@@ -32,8 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const quantity = container.querySelector(".category-quantity");
         const unit = container.querySelector(".category-unit");
 
-
-
         form.addEventListener("submit", async(event) => {
             event.preventDefault();  // Prevent form submission
             
@@ -74,60 +72,31 @@ document.addEventListener("DOMContentLoaded", () => {
                         const li = document.createElement("li");
                         li.className = "flex justify-between items-center border-b pb-1";
                         li.dataset.qty = qty;  //qty of item stored
+                        li.dataset.unit = selectedUnit;  //unit of item stored
+                        li.dataset.item = item;  //item name stored
 
                         //span element for item name
                         const span = document.createElement("span");
                         span.textContent = `${item} - ${qty} ${selectedUnit}`;
-
-                        console.log("Item text content:", span.textContent);  
                         li.appendChild(span);
+                        console.log("Item text content:", span.textContent);  
 
                         //div for buttons
                         const buttonDiv = document.createElement("div");
                         buttonDiv.className = "space-x-2";
                         
 
-                        //+ button
                         const plusButton = document.createElement("button");
-                        plusButton.className = "px-2 py-1 bg-green-500 text-white rounded";
+                        plusButton.className = "increment px-2 py-1 bg-green-500 text-white rounded";
                         plusButton.textContent = "+";
 
-                        //+ button functionality
-                        plusButton.addEventListener("click", () => {
-                            //get current qty from data attribute
-                            let currentQty = parseInt(li.dataset.qty);
-                            currentQty++;
-                            li.dataset.qty = currentQty;
-
-                            
-                            span.textContent = `${item} - ${currentQty} ${selectedUnit}`;
-                        });
-
-                        //- button
                         const minusButton = document.createElement("button");
-                        minusButton.className = "px-2 py-1 bg-yellow-500 text-white rounded";
+                        minusButton.className = "decrement px-2 py-1 bg-yellow-500 text-white rounded";
                         minusButton.textContent = "-";
 
-                        //minus button functionality
-                        minusButton.addEventListener("click", () => {
-                            //get current qty from data attribute
-                            let currentQty = parseInt(li.dataset.qty);
-                            currentQty--;
-                            li.dataset.qty = currentQty;
-
-                            span.textContent = `${item} - ${currentQty} ${selectedUnit}`;
-                        });
-
-                        //trash button 
                         const trashButton = document.createElement("button");
-                        trashButton.className = "px-2 py-1 bg-red-500 text-white rounded";
+                        trashButton.className = "trash px-2 py-1 bg-red-500 text-white rounded";
                         trashButton.textContent = "🗑️";
-
-                        //trash button functionality
-                        trashButton.addEventListener("click", () => {
-                            list.removeChild(li);  //remove the li from the list
-                            console.log("Item removed:", item, qty, selectedUnit);
-                        });
                         
                         //append buttons to the div
                         buttonDiv.appendChild(plusButton);
@@ -139,6 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         //append li to list (final step to add everything to the list)
                         list.appendChild(li); 
+
+                        //resetting form
                         input.value = ""; //resetting input field 
                         quantity.value = ""; //resetting quantity field
                         unit.value = ""; //resetting unit field
@@ -159,5 +130,59 @@ document.addEventListener("DOMContentLoaded", () => {
             
         });
 
+        //event delegation for increment/decrement/trash buttons
+
+        list.addEventListener("click", async(e) => {
+            let action = null;  
+            const li = e.target.closest("li");
+            if (!li) return; 
+
+            const span = li.querySelector("span");
+            let qty = parseFloat(li.dataset.qty);
+            const unit = li.dataset.unit;
+            const item = li.dataset.item;
+
+            if (e.target.classList.contains("increment")) {
+                qty++;
+                li.dataset.qty = qty;  
+                span.textContent = `${item} - ${qty} ${unit}`;
+                action = "increment"
+
+            } else if (e.target.classList.contains("decrement")) {
+                qty = Math.max(0, qty - 1);
+                li.dataset.qty = qty;  
+                span.textContent = `${item} - ${qty} ${unit}`;
+                action = "decrement"
+
+            } else if (e.target.classList.contains("trash")) {
+                li.remove();
+                action = "trash";
+            }
+
+            if (action) {
+                try {
+                    const response = await fetch("/myApp/updateIngredient/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrftoken
+                    },
+                        body: JSON.stringify({
+                            item: item,
+                            action: action
+                        })
+                    });
+
+                    const result = await response.json();
+                    console.log("Server response:", result);
+
+
+                } catch (error) {
+                    console.error("Error updating pantry:", error);
+                }
+
+            };
+
+        });
     });
 });

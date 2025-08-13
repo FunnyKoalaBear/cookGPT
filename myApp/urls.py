@@ -13,6 +13,7 @@ urlpatterns = [
     path("designMeal", views.designMeal, name="designMeal"),
     path("pantry", views.pantry, name="pantry"),
     path('myApp/updatePantry/', views.updatePantry, name='updatePantry'),
+    path('myApp/updateIngredient/', views.updateIngredient, name='updateIngredient'),
     path("meals", views.meals, name="meals"),
     path('admin/', admin.site.urls),
     

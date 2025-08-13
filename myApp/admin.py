@@ -15,7 +15,7 @@ class UserAdmin(BaseUserAdmin):
 # Ingredient admin
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ("name", "category", "quantity", "unit_of_measurement")
+    list_display = ("name", "category", "quantity", "unit_of_measurement", "user")
     list_filter = ("category", "unit_of_measurement")
     search_fields = ("name",)
 

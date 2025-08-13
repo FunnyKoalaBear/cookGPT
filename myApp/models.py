@@ -38,13 +38,19 @@ class Ingredient(models.Model):
         if self.quantity is not None and self.quantity < 0:
             self.quantity = 1
     
-    name = models.CharField(max_length=100, unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     quantity = models.FloatField(default=1) 
     unit_of_measurement = models.CharField(max_length=20, choices=UNITS, default='piece')
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'name'], name='unique_ingredient_per_user')
+        ]
+
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.user.username})"
 
 
 
