@@ -19,6 +19,8 @@ function getCookie(name) {
     return cookieValue;
 }
 
+const csrftoken = getCookie('csrftoken');
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const containers = document.querySelectorAll(".category-container");
@@ -39,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const qty = quantity.value.trim();
             const selectedUnit = unit.value;
             const category = container.querySelector("h2").textContent.trim() || "Unkown Category";  
+            console.log("Form submitted for category:", category);
             
             console.log("Category:", category);
             console.log("Item:", item);
@@ -52,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            "X-CSRFToken": getCookie("csrftoken"),
+                            "X-CSRFToken": csrftoken
                         },
                         body: JSON.stringify({
                             item: item,

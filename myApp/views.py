@@ -93,13 +93,14 @@ def pantry(request):
 
 
 @csrf_exempt
+@login_required 
 def updatePantry(request):
 
     if request.method == "POST":
         try:
             data = json.loads(request.body)
             item = data.get("item")
-            quantity = data.get("quantity")
+            quantity = float(data.get("quantity", 0))
             unit = data.get("unit")
             category = data.get("category")
         
@@ -107,16 +108,28 @@ def updatePantry(request):
 
             # validating the category
             validCategories = {
-                'vegies': 'veggies',
-                'proteins': 'proteins',
-                'carbs': 'carbs',
-                'sauces': 'sauces',
-                'special': 'special',
-                'beverage': 'beverage',
+                'vegies': 'Veggies & Fruits',
+                'proteins': 'Proteins',
+                'carbs': 'Carbs',
+                'sauces': 'Sauces & Spices',
+                'special': 'Special',
+                'beverage': 'Beverages',
             }
 
-            if category not in validCategories:
-                return JsonResponse({"error": "Invalid category"}, status=400)
+            
+            category_field_mapping = {
+                'Veggies & Fruits': 'vegies',
+                'Proteins': 'proteins',
+                'Carbs': 'carbs',
+                'Sauces & Spices': 'sauces',
+                'Special': 'special',
+                'Beverages': 'beverage',
+            }
+
+            if category not in category_field_mapping:
+                return JsonResponse({"status": "error", "message": f"Invalid category: {category}"}, status=400)
+
+            category_field = getattr(pantry, category_field_mapping[category])
 
             # getting/creating the ingredient
             item, created = Ingredient.objects.get_or_create(
@@ -124,7 +137,7 @@ def updatePantry(request):
                 defaults={
                     "category": category,
                     "quantity": quantity,
-                    "unit": unit
+                    "unit_of_measurement": unit
                 }
             )
 
@@ -132,34 +145,33 @@ def updatePantry(request):
                 if item.category != category:
                     item.category = category
 
-                if item.unit != unit:
-                    item.unit = unit
-                
+                if item.unit_of_measurement != unit:
+                    item.unit_of_measurement = unit
+
                 item.quantity += quantity
                 item.save()
             
             #create a pantry for the user 
             pantry, _ = Pantry.objects.get_or_create(user=user)
 
+            
             #access category field 
             category_field = getattr(pantry, validCategories[category])
 
             #check if ingredient is already in pantry 
-            if Ingredient not in category_field.all():
-                category_field.add(Ingredient)
+            if item not in category_field.all():
+                category_field.add(item)
             else:
-                Ingredient.quantity += quantity
-                Ingredient.save()
+                existing_item = category_field.get(pk=item.pk)
+                existing_item.quantity += quantity
+                existing_item.save()
             
-
             return JsonResponse({"status": 200})
-
+            
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
-    else:
-        return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
-
+        
 
 def meals(request):
     return render(request, "myApp/meals.html")
