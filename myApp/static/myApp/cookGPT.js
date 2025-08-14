@@ -61,7 +61,18 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Generate Recipe button clicked");
             
             if (ingredients.length !== 0 & query.length > 2) {
-                
+
+                //hiding prompt and ingredient box and heading
+                document.getElementById("beforeGeneration").style.display = "none";
+
+
+                //loading animation
+                const loading = document.getElementById("loading");
+                const heading = document.querySelector("#heading");
+                loading.style.display = "block";
+                heading.style.display = "none";
+
+
                 try {
                     const response = await fetch("/myApp/generateRecipe/", {
                         method: "POST",
@@ -84,20 +95,48 @@ document.addEventListener("DOMContentLoaded", () => {
                         const recipeTitleTag = document.querySelector("#recipeTitle");
                         const recipeString = result.message;
                         const recipeTitle = result.recipeTitle || "Recipe";
-
+                        
+                        //updating ingredient box with recipe
                         recipeTitleTag.setAttribute("recipeTitle", recipeTitle);
-                        recipeTitleTag.textContent = recipeTitle;
+                        recipeTitleTag.textContent = recipeTitle + "📄";
                         
                         recipeTag.setAttribute("recipe", recipeString);
                         recipeTag.textContent = recipeString;
 
+                        //hiding loading animation
+                        loading.style.display = "none";
+
                         console.log(recipeTitle);
+
+
+                        //displaying instructions box
+                        document.getElementById("instructionsBox").style.display = "block"; 
 
                     }
                 }
                 catch (error) {
                     console.error("Error generating recipe:", error);
-                    return; //exit when error
+
+                    //updating instruction box with error message
+                    const recipeTag = document.querySelector("#recipe");
+                    const recipeTitleTag = document.querySelector("#recipeTitle");
+                    const recipeString = "Error in generating recipe. Please try again.";
+                    const recipeTitle = "Error";
+
+                    //updating ingredient box with recipe
+                    recipeTitleTag.setAttribute("recipeTitle", recipeTitle);
+                    recipeTitleTag.textContent = recipeTitle;
+                    
+                    recipeTag.setAttribute("recipe", recipeString);
+                    recipeTag.textContent = recipeString;
+
+                    //displaying instructions box
+                    document.getElementById("instructionsBox").style.display = "block"; 
+                    
+                    //hiding loading animation
+                    loading.style.display = "none";
+                    // return; //exit when error
+                    
                 }
 
             }
