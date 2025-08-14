@@ -153,6 +153,8 @@ def generateRecipe(request):
             query = f"{query}, with the ingredients: {ingredients}"
             message = completion.choices[0].message.content
             recipeTitle = message.split("\n")[0]
+            message = "\n".join(message.split("\n")[2:])
+            
 
             print(recipeTitle)
             print(query)

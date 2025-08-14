@@ -100,8 +100,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         recipeTitleTag.setAttribute("recipeTitle", recipeTitle);
                         recipeTitleTag.textContent = recipeTitle + "📄";
                         
-                        recipeTag.setAttribute("recipe", recipeString);
-                        recipeTag.textContent = recipeString;
+                        
+                        const formattedRecipe = recipeString
+                            .replace(/Ingredients:/g, "<b>Ingredients:</b>") //adds bold tag for subheadings
+                            .replace(/Instructions:/g, "<b>Instructions:</b>")
+                            .replace(/\n/g, "<br>");  // preserve line breaks
+
+                        recipeTag.setAttribute("recipe", formattedRecipe);
+                        recipeTag.textContent = formattedRecipe;
+                        recipeTag.innerHTML = formattedRecipe;
 
                         //hiding loading animation
                         loading.style.display = "none";
