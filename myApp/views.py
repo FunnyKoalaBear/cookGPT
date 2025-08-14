@@ -293,7 +293,13 @@ def updateIngredient(request):
 
 @login_required 
 def meals(request):
-    return render(request, "myApp/meals.html")
+    user = request.user
+    recipes = MyRecipe.objects.filter(user=user)
+
+
+    return render(request, "myApp/meals.html", {
+        "recipes": recipes
+    })
 
 
 @login_required 
