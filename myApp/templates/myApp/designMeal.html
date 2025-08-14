@@ -81,6 +81,15 @@
                     <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
                         {{ ing.name }}
                     </button>
+                
+                {% empty %}
+
+                    <p class="mb-2 text-sm text-gray-600">No veggies added, click
+                        <a href="{% url 'pantry' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-1 py-0.5 rounded no-underline transition-colors duration-200 text-xs" style="outline: none;">
+                            pantry</a>
+                        to add ingredients
+                    </p>
+
                 {% endfor %}
 
 
