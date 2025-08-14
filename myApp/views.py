@@ -22,9 +22,17 @@ from django.utils.cache import patch_cache_control
 #ai api 
 from openai import OpenAI
 
+from dotenv import load_dotenv
+import os
+from openai import OpenAI
+
+# Load .env file
+load_dotenv()
+api_key = os.getenv("api_key").strip()
+
 client = OpenAI(
   base_url="https://openrouter.ai/api/v1", 
-  api_key="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",  # Ensure your API key is correct and kept private
+  api_key=api_key
 )
 
 allCategories = ['vegies', 'proteins', 'carbs', 'sauces', 'special', 'beverage']
@@ -127,8 +135,9 @@ def generateRecipe(request):
             ingredients = data.get("ingredients")
             query = data.get("query")
 
-            print(ingredients)
-            print(query)
+            print("DEBUG: API key =", os.getenv("api_key"))
+            print("DEBUG: Ingredients =", ingredients)
+            print("DEBUG: Query =", query)
 
             completion = client.chat.completions.create(
                 extra_body={},
@@ -143,7 +152,7 @@ def generateRecipe(request):
 
             query = f"{query}, with the ingredients: {ingredients}"
             message = completion.choices[0].message.content
-            recipeTitle =  lines = message.split("\n")[0]
+            recipeTitle = message.split("\n")[0]
 
             print(recipeTitle)
             print(query)
