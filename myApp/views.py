@@ -330,8 +330,14 @@ def saveRecipe(request):
 
 
 @login_required 
-def removeRecipe(request):
-    pass
+def removeRecipe(request, recipeID):
+    if request.method == "POST":
+        recipe = MyRecipe.objects.get(id=recipeID)
+        recipe.delete()
+        return JsonResponse({"success": True})
+    
+    return render(request, "myApp/meals.html")
+
 
 #hi from my laptop 
 
