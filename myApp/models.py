@@ -70,22 +70,8 @@ class Pantry(models.Model):
 
 class MyRecipe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipe")
-    recipeName = models.CharField(max_length=100)
-    ingredients = models.ManyToManyField(Ingredient, blank=True)
+    recipeTitle = models.CharField(max_length=100)
+    recipe = models.TextField(default="No recipe provided")
 
     def __str__(self):
-        return f"{self.recipeName} by {self.user.username}"
-
-
-
-class InstructionStep(models.Model):
-    recipe = models.ForeignKey(MyRecipe, on_delete=models.CASCADE, related_name="steps")
-    step_number = models.PositiveIntegerField()
-    description = models.TextField()
-
-    class Meta:
-        ordering = ["step_number"]
-
-    def __str__(self):
-        return f"Step {self.step_number}: {self.description[:30]}..."
-    
+        return f"{self.recipeTitle} by {self.user.username}"

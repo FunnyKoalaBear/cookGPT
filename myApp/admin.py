@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Ingredient, Pantry, MyRecipe, InstructionStep
+from .models import User, Ingredient, Pantry, MyRecipe
 
 # Custom User admin
 @admin.register(User)
@@ -28,16 +28,5 @@ class PantryAdmin(admin.ModelAdmin):
 # MyRecipe admin
 @admin.register(MyRecipe)
 class MyRecipeAdmin(admin.ModelAdmin):
-    list_display = ("recipeName", "user")
-    search_fields = ("recipeName", "user__username")
-    filter_horizontal = ("ingredients",)
-
-# InstructionStep admin
-@admin.register(InstructionStep)
-class InstructionStepAdmin(admin.ModelAdmin):
-    list_display = ("recipe", "step_number", "description_short")
-    list_filter = ("recipe",)
-
-    def description_short(self, obj):
-        return obj.description[:50] + "..." if len(obj.description) > 50 else obj.description
-    description_short.short_description = "Description"
+    list_display = ("recipeTitle", "user")
+    search_fields = ("recipeTitle", "user__username")

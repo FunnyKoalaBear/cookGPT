@@ -149,4 +149,48 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
+
+    document.addEventListener("click", async function(event) {
+
+        const target = event.target;
+
+        if (target.id === "saveRecipe") {
+            
+            const recipeTitle = document.getElementById("recipeTitle").innerHTML;  // forms strings
+            const recipe = document.getElementById("recipe").innerHTML;
+            console.log("Saving recipe:", recipeTitle);
+            console.log("Recipe content:", recipe);
+
+            //changing button color after saving 
+            target.style.backgroundColor = "blue";
+            target.style.color = "white";
+            target.innerHTML = "Saved!"
+
+            //post logic 
+            try {
+                const response = await fetch("/myApp/saveRecipe/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrftoken
+                    },
+                    body: JSON.stringify({
+                        recipeTitle: recipeTitle,
+                        recipe: recipe
+                    })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log("Recipe saved successfully:", result);
+                } else {
+                    console.error("Error saving recipe:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error saving recipe:", error);
+            }
+        }
+
+    });
 });

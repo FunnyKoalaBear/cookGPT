@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth.decorators import login_required
 
-from .models import User, Ingredient, Pantry, MyRecipe, InstructionStep
+from .models import User, Ingredient, Pantry, MyRecipe
 
 #cache control
 from datetime import timedelta
@@ -150,7 +150,7 @@ def generateRecipe(request):
                 ]
             )
 
-            query = f"{query}, with the ingredients: {ingredients}"
+            query = f"{query}, with the ingredients: {ingredients}, give recipe for 1 serving only"
             message = completion.choices[0].message.content
             recipeTitle = message.split("\n")[0]
             message = "\n".join(message.split("\n")[2:])
@@ -298,12 +298,34 @@ def meals(request):
 
 @login_required 
 def saveRecipe(request):
-    pass
+
+    if request.method == "POST":
+        
+        try:
+            data = json.loads(request.body)
+            recipeTitle = data.get("recipeTitle")
+            recipe = data.get("recipe")
+
+            print("DEBUG RECIPE TITLE: ", recipeTitle)
+            print("DEBUG RECIPE INSTRUCTION: ", recipe)
+
+            #saving the recipe
+            myRecipe = MyRecipe.objects.create(
+                user = request.user,
+                recipeTitle = recipeTitle,
+                recipe = recipe
+            )
+            
+            return JsonResponse({"status": "success", "Recipe Title": myRecipe.recipeTitle})
+        
+        except Exception as e: 
+            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+
 
 
 @login_required 
 def removeRecipe(request):
     pass
 
-#hi from laptop 
+#hi from my laptop 
 
