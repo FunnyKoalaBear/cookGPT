@@ -19,6 +19,14 @@ from .models import User, Ingredient, Pantry, MyRecipe, InstructionStep
 from datetime import timedelta
 from django.utils.cache import patch_cache_control
 
+#ai api 
+from openai import OpenAI
+
+client = OpenAI(
+  base_url="https://openrouter.ai/api/v1", 
+  api_key="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",  # Ensure your API key is correct and kept private
+)
+
 allCategories = ['vegies', 'proteins', 'carbs', 'sauces', 'special', 'beverage']
 
 def index(request):
@@ -82,12 +90,71 @@ def register(request):
 
 @login_required 
 def designMeal(request):
-    return render(request, "myApp/designMeal.html")
+    
+    user = request.user
+    
+    #get/create the users pantry
+    pantry, _ = Pantry.objects.get_or_create(user=user)
+
+    #dictionary of all categories 
+    pantryData = {}
+
+    for field in allCategories:
+        ingredients = getattr(pantry, field).all()
+
+        #extracting ingredient information
+        #makes arrays ina  dictionary
+        #the arrays hold dictionaries of ingredients 
+        pantryData[field] = [
+            {
+                "name": ing.name,
+                "quantity": ing.quantity,
+                "unit": ing.unit_of_measurement,
+                "category": ing.category
+            }
+            for ing in ingredients
+        ]
+
+    return render(request, "myApp/designMeal.html", {"pantry": pantryData})
 
 
 @login_required 
-def makeRecipe(request):
-    pass
+def generateRecipe(request):
+    if request.method == "POST":
+        
+        try:
+            data = json.loads(request.body)
+            ingredients = data.get("ingredients")
+            query = data.get("query")
+
+            print(ingredients)
+            print(query)
+
+            completion = client.chat.completions.create(
+                extra_body={},
+                model="gpt-3.5-turbo",  
+                messages=[
+                    {
+                    "role": "user",
+                    "content": f"{query}, with the ingredients: {ingredients}, include recipe title in the first line."
+                    }
+                ]
+            )
+
+            query = f"{query}, with the ingredients: {ingredients}"
+            message = completion.choices[0].message.content
+            recipeTitle =  lines = message.split("\n")[0]
+
+            print(recipeTitle)
+            print(query)
+            print(message)
+            
+            return JsonResponse({"status": 200, "message": message, "recipeTitle": recipeTitle}, status=200)
+            
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+
+
 
 
 @login_required 

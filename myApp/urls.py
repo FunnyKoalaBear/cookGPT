@@ -14,6 +14,7 @@ urlpatterns = [
     path("pantry", views.pantry, name="pantry"),
     path('myApp/updatePantry/', views.updatePantry, name='updatePantry'),
     path('myApp/updateIngredient/', views.updateIngredient, name='updateIngredient'),
+    path('myApp/generateRecipe/', views.generateRecipe, name='generateRecipe'),
     path("meals", views.meals, name="meals"),
     path('admin/', admin.site.urls),
     

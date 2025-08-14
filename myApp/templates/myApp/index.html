@@ -14,10 +14,20 @@
         }
     </style>
 
+    {% if user.is_authenticated %}
 
-    <div class="container">
-        <h1>CookGPT</h1>
-        <a id="design" class="btn" href="{% url 'designMeal' %}">Design Your Meal</a>
-    </div>
+        <div class="container">
+            <h1>CookGPT</h1>
+            <a id="design" class="btn" href="{% url 'designMeal' %}">Design Your Meal</a>
+        </div>
+
+    {% else %}
+
+        <div class="container">
+            <h1>Welcome to CookGPT</h1>
+            <p style="font-size: 1.3em; font-weight: 400;">Please log in or register to start designing your meals.</p>
+        </div>
+
+    {% endif %}
 
 {% endblock %}

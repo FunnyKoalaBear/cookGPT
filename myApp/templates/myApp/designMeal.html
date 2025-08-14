@@ -6,6 +6,7 @@
 
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'myApp/cookGPT.js' %}"></script>
 
     <style>
         body {
@@ -46,13 +47,58 @@
         <div class="flex-1 bg-white rounded-2xl shadow-md p-6 border border-gray-200">
             <h2 class="text-xl font-semibold mb-4">🧺 Ingredients You Want to Use</h2>
 
-            <!--THESE SHOULD BE BUTTONS THAT USERS CAN CLICK-->
 
-            <div class="flex flex-wrap gap-2">
-                <span class="bg-gray-200 px-3 py-1 rounded-full">Egg</span>
-                <span class="bg-gray-200 px-3 py-1 rounded-full">Cheese</span>
-                <span class="bg-gray-200 px-3 py-1 rounded-full">Chicken</span>
-                <span class="bg-gray-200 px-3 py-1 rounded-full">Spinach</span>
+            <div class="flex flex-wrap gap-2">  
+                
+                {% for ing in pantry.vegies %}
+                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                        {{ ing.name }}
+                    </button>
+                {% endfor %}
+
+
+                <div class="w-full"></div>
+
+
+                {% for ing in pantry.proteins %}
+                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                        {{ ing.name }}
+                    </button>
+                {% endfor %}
+
+                <div class="w-full"></div>
+
+                {% for ing in pantry.carbs %}
+                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                        {{ ing.name }}
+                    </button>
+                {% endfor %}
+
+                <div class="w-full"></div>
+                    
+                {% for ing in pantry.sauces %}
+                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                        {{ ing.name }}
+                    </button>
+                {% endfor %}
+
+                <div class="w-full"></div>
+
+                {% for ing in pantry.special %}
+                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                        {{ ing.name }}
+                    </button>
+                {% endfor %}
+
+                <div class="w-full"></div>
+
+                {% for ing in pantry.beverage %}
+                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                        {{ ing.name }}
+                    </button>
+                {% endfor %}
+                
+
             </div>
 
         </div>
@@ -62,23 +108,26 @@
             
             <!-- Prompt Box -->
             <div class="bg-white rounded-2xl shadow-md p-6 border border-gray-200">
+
                 <h2 class="text-xl font-semibold mb-4">💭 What Are You Craving?</h2>
-                <input type="text" placeholder="e.g. spicy Asian egg dish" class="w-full p-2 border rounded-md mb-4">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">Generate Recipe</button>
+                <input type="text" placeholder="e.g. spicy Asian egg dish" class="w-full p-2 border rounded-md mb-4" id="query">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md" id="generateRecipe">Generate Recipe</button>
+
             </div>
 
             <!-- Recipe Instructions Box -->
             <div class="bg-white rounded-2xl shadow-md p-6 border border-gray-200">
+
                 <h2 class="text-xl font-semibold mb-4 text-center">📄 Recipe Instructions</h2>
-                <p class="font-bold text-lg mb-2 text-center">RECIPE NAME</p>
-                <ol class="list-decimal ml-6 space-y-2 text-gray-800">
 
-                    <li>LIST RECIPE HERE</li>
+                <p class="font-bold text-lg mb-2 text-center" id="recipeTitle"></p>
 
-                </ol>
+                <p class="text-gray-800" id="recipe"></p>
+
                 <div class="text-center mt-4">
                     <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">Save Recipe</button>
                 </div>
+
             </div>
 
         </div>

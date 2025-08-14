@@ -18,7 +18,7 @@
                 {% if user.is_authenticated %} 
                     <li class="nav-item">
                         <div class="ml-auto">
-                            <a class="nav-link" href="#" style="text-align: right;"><strong>Hello {{ user.username }}</strong></a>
+                            <strong class="nav-link" style="text-align: right;" >Hello {{ user.username }}</strong>
                         </div>
                     </li>
                 {% endif %}
@@ -26,22 +26,24 @@
 
                 {% if user.is_authenticated %} <!--Log in and logout-->
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout_view' %}">Log Out</a>
+                    <li>
+                        <a class="nav-link" href="{% url 'designMeal' %}">Design Meal</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'meals' %}">Your Meals</a>
+                        <a class="nav-link" href="{% url 'meals' %}">Saved Meals</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'pantry' %}">Pantry</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout_view' %}">Log Out</a>
+                    </li>
+
 
                 {% else %}
-
-                    <!--Maybe compress these buttons into a single account button in the future -->
 
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login_view' %}">Log In</a>
