@@ -57,9 +57,14 @@
             overflow: hidden;
             background-position: center;
         }
+
+        #scale-wrapper {
+            transform: scale(0.75);
+            transform-origin: top left;
+            width: 133.33%; /* 100 / 0.75 to compensate for scaling */
+        }
     </style>
     
-    <br>
     <br>
     <br>
     <h1 id="heading">Design Your Meal</h1>
@@ -71,106 +76,106 @@
         <img src="/static/myApp/spinner.gif" alt="Loading..." class="w-32 h-32" />
     </div>
 
-
-    <div id="beforeGeneration" class="max-w-6xl mx-auto space-y-8 flex">
-        
-        <!-- Left Side: Ingredients Box -->
-        <div class="flex-1 bg-white rounded-2xl shadow-md p-6 border border-gray-200 justify-center block">
-            <h2 class="text-xl font-semibold mb-4">🧺 Ingredients You Want to Use</h2>
-
-
-            <div class="flex flex-wrap gap-2">  
-                
-                {% for ing in pantry.vegies %}
-                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
-                        {{ ing.name }}
-                    </button>
-                
-                {% empty %}
-
-                    <p class="mb-2 text-sm text-gray-600">No veggies added, click
-                        <a href="{% url 'pantry' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-1 py-0.5 rounded no-underline transition-colors duration-200 text-xs" style="outline: none;">
-                            pantry</a>
-                        to add ingredients
-                    </p>
-
-                {% endfor %}
-
-
-                <div class="w-full"></div>
-
-
-                {% for ing in pantry.proteins %}
-                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
-                        {{ ing.name }}
-                    </button>
-                {% endfor %}
-
-                <div class="w-full"></div>
-
-                {% for ing in pantry.carbs %}
-                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
-                        {{ ing.name }}
-                    </button>
-                {% endfor %}
-
-                <div class="w-full"></div>
-                    
-                {% for ing in pantry.sauces %}
-                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
-                        {{ ing.name }}
-                    </button>
-                {% endfor %}
-
-                <div class="w-full"></div>
-
-                {% for ing in pantry.special %}
-                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
-                        {{ ing.name }}
-                    </button>
-                {% endfor %}
-
-                <div class="w-full"></div>
-
-                {% for ing in pantry.beverage %}
-                    <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
-                        {{ ing.name }}
-                    </button>
-                {% endfor %}
-                
-
-            </div>
-
-        </div>
-    
-        <!-- Right Side: Prompt + Recipe -->
-        <div class="flex flex-col ml-6 space-y-8 w-1/3 justify-center">
+    <div id="scale-wrapper">
+        <div id="beforeGeneration" class="max-w-6xl mx-auto space-y-8 flex">
             
-            <!-- Prompt Box -->
-            <div id="promptBox" class="bg-white rounded-2xl shadow-md p-6 border border-gray-200 justify-center block" style="margin-top: -60px;">
+            <!-- Left Side: Ingredients Box -->
+            <div class="flex-1 bg-white rounded-2xl shadow-md p-6 border border-gray-200 justify-center block">
+                <h2 class="text-xl font-semibold mb-4">🧺 Ingredients You Want to Use</h2>
 
-                <h2 class="text-xl font-semibold mb-4">💭 What Are You Craving?</h2>
-                <input type="text" placeholder="e.g. spicy Asian egg dish" class="w-full p-2 border rounded-md mb-4" id="query">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md" id="generateRecipe">Generate Recipe</button>
+
+                <div class="flex flex-wrap gap-2">  
+                    
+                    {% for ing in pantry.vegies %}
+                        <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                            {{ ing.name }}
+                        </button>
+                    
+                    {% empty %}
+
+                        <p class="mb-2 text-sm text-gray-600">No veggies added, click
+                            <a href="{% url 'pantry' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-1 py-0.5 rounded no-underline transition-colors duration-200 text-xs" style="outline: none;">
+                                pantry</a>
+                            to add ingredients
+                        </p>
+
+                    {% endfor %}
+
+
+                    <div class="w-full"></div>
+
+
+                    {% for ing in pantry.proteins %}
+                        <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                            {{ ing.name }}
+                        </button>
+                    {% endfor %}
+
+                    <div class="w-full"></div>
+
+                    {% for ing in pantry.carbs %}
+                        <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                            {{ ing.name }}
+                        </button>
+                    {% endfor %}
+
+                    <div class="w-full"></div>
+                        
+                    {% for ing in pantry.sauces %}
+                        <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                            {{ ing.name }}
+                        </button>
+                    {% endfor %}
+
+                    <div class="w-full"></div>
+
+                    {% for ing in pantry.special %}
+                        <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                            {{ ing.name }}
+                        </button>
+                    {% endfor %}
+
+                    <div class="w-full"></div>
+
+                    {% for ing in pantry.beverage %}
+                        <button class="bg-gray-200 px-3 py-1 rounded-full ingredient-btn" onclick="this.classList.toggle('bg-green-400'); this.classList.toggle('bg-gray-200');" data-item="{{ ing.name }}" data-quantity="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                            {{ ing.name }}
+                        </button>
+                    {% endfor %}
+                    
+
+                </div>
+
+            </div>
+        
+            <!-- Right Side: Prompt + Recipe -->
+            <div class="flex flex-col ml-6 space-y-8 w-1/3 justify-center">
+                
+                <!-- Prompt Box -->
+                <div id="promptBox" class="bg-white rounded-2xl shadow-md p-6 border border-gray-200 justify-center block" style="margin-top: -60px;">
+
+                    <h2 class="text-xl font-semibold mb-4">💭 What Are You Craving?</h2>
+                    <input type="text" placeholder="e.g. spicy Asian egg dish" class="w-full p-2 border rounded-md mb-4" id="query">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md" id="generateRecipe">Generate Recipe</button>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
 
+        <!-- Recipe Instructions Box -->
+        <div id="instructionsBox" class="bg-white rounded-2xl shadow-md p-6 border border-gray-200 hidden mx-8" style="width: 60%; margin-left: auto; margin-right: auto;">
+            
+            <h2 class="font-bold text-lg mb-2 text-center" id="recipeTitle"></h2>
+            <p class="text-gray-800" id="recipe"></p>
 
-    <!-- Recipe Instructions Box -->
-    <div id="instructionsBox" class="bg-white rounded-2xl shadow-md p-6 border border-gray-200 hidden mx-8" style="width: 60%; margin-left: auto; margin-right: auto;">
-        
-        <h2 class="font-bold text-lg mb-2 text-center" id="recipeTitle"></h2>
-        <p class="text-gray-800" id="recipe"></p>
+            <div class="text-center mt-4">
+                <button data-recipeID=-1 data-saved="false" id="saveRecipe" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md no-underline hover:no-underline" style="outline: none;" onclick="this.blur();">Save Recipe</button>
+                <a href="{% url 'designMeal' %}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md no-underline hover:no-underline">New Recipe</a>
+            </div>
 
-        <div class="text-center mt-4">
-            <button data-recipeID=-1 data-saved="false" id="saveRecipe" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md no-underline hover:no-underline" style="outline: none;" onclick="this.blur();">Save Recipe</button>
-            <a href="{% url 'designMeal' %}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md no-underline hover:no-underline">New Recipe</a>
         </div>
-
     </div>
-
 {% endblock %}

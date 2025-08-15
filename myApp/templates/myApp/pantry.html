@@ -15,96 +15,60 @@
             background-color: rgb(245, 232, 53);
             background-size: cover;
         }
+        #scale-wrapper {
+            transform: scale(0.75);
+            transform-origin: top left;
+            width: 133.33%; /* 100 / 0.75 to compensate for scaling */
+        }
     </style>
     
     
     <br>
-    <br>
-    
-    <br>
-    
 
-    <div class="min-h-screen p-6">
-        <h1 class="text-3xl font-bold mb-6 text-center">🍽️ Your Pantry</h1>
-      
-        <!-- First Row -->
-        <div class="flex justify-center">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 overflow-y-auto max-h-[80vh] px-2 max-w-5xl">
-            
-            <!-- Meal Card 1 -->
-            <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
-                <h2 class="text-xl font-semibold mb-2" data-category="veggies">Veggies & Fruits</h2>
+    <div id="scale-wrapper">
+      <div class="min-h-screen p-6">
+          <h1 class="text-3xl font-bold mb-6 text-center">🍽️ Your Pantry</h1>
+        
+          <!-- First Row -->
+          <div class="flex justify-center">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 overflow-y-auto max-h-[80vh] px-2 max-w-5xl">
               
-              <!-- Ingredient List -->
-              <ul class="list-none space-y-2 category-list">
-
-                  {% for ing in pantry.vegies %}
-                    <li class="flex justify-between items-center border-b pb-1" data-item="{{ ing.name }}" data-qty="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
-                      <span>{{ ing.name }} - {{ ing.quantity }} {{ ing.unit }}</span>   
-
-                      <div class="space-x-2">
-                        <button class="px-2 py-1 bg-green-500 text-white rounded increment">+</button>
-                        <button class="px-2 py-1 bg-yellow-500 text-white rounded decrement">-</button>
-                        <button class="px-2 py-1 bg-red-500 text-white rounded trash">🗑️</button>
-                      </div>
-
-                    </li>
-                  {% endfor %}
-      
-              </ul>
-              <br>
-            
-              <!--INSERT INGREDIENT LIST-->
-              {% include 'myApp/ingredientForm.html' %}
-
-            </div>
-      
-            <!-- Another Card  2-->
-            <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
-              <h2 class="text-xl font-semibold mb-2">Proteins</h2>
-              
+              <!-- Meal Card 1 -->
+              <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
+                  <h2 class="text-xl font-semibold mb-2" data-category="veggies">Veggies & Fruits</h2>
+                
                 <!-- Ingredient List -->
                 <ul class="list-none space-y-2 category-list">
-                  
-                  {% for ing in pantry.proteins %}
-                    <li class="flex justify-between items-center border-b pb-1" data-item="{{ ing.name }}" data-qty="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
-                      <span>{{ ing.name }} - {{ ing.quantity }} {{ ing.unit }}</span>   
 
-                      <div class="space-x-2">
-                        <button class="px-2 py-1 bg-green-500 text-white rounded increment">+</button>
-                        <button class="px-2 py-1 bg-yellow-500 text-white rounded decrement">-</button>
-                        <button class="px-2 py-1 bg-red-500 text-white rounded trash">🗑️</button>
-                      </div>
+                    {% for ing in pantry.vegies %}
+                      <li class="flex justify-between items-center border-b pb-1" data-item="{{ ing.name }}" data-qty="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                        <span>{{ ing.name }} - {{ ing.quantity }} {{ ing.unit }}</span>   
 
-                    </li>
-                  {% endfor %}
-                  
+                        <div class="space-x-2">
+                          <button class="px-2 py-1 bg-green-500 text-white rounded increment">+</button>
+                          <button class="px-2 py-1 bg-yellow-500 text-white rounded decrement">-</button>
+                          <button class="px-2 py-1 bg-red-500 text-white rounded trash">🗑️</button>
+                        </div>
+
+                      </li>
+                    {% endfor %}
+        
                 </ul>
-                
-
+                <br>
+              
+                <!--INSERT INGREDIENT LIST-->
                 {% include 'myApp/ingredientForm.html' %}
 
-
-            </div>
-      
-          </div>
-          
-        </div>
-
-        <br>
+              </div>
         
-        <!--Second row -->
-
-        <div class="flex justify-center">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 overflow-y-auto max-h-[80vh] px-2 max-w-5xl">
+              <!-- Another Card  2-->
+              <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
+                <h2 class="text-xl font-semibold mb-2">Proteins</h2>
                 
-                <!-- Meal Card -->
-                <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
-                  <h2 class="text-xl font-semibold mb-2">Carbs</h2>
-              
                   <!-- Ingredient List -->
                   <ul class="list-none space-y-2 category-list">
-                    {% for ing in pantry.carbs %}
+                    
+                    {% for ing in pantry.proteins %}
                       <li class="flex justify-between items-center border-b pb-1" data-item="{{ ing.name }}" data-qty="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
                         <span>{{ ing.name }} - {{ ing.quantity }} {{ ing.unit }}</span>   
 
@@ -116,105 +80,143 @@
 
                       </li>
                     {% endfor %}
+                    
                   </ul>
-            
-                  <!--INSERT INGREDIENT LIST-->
-                  {% include 'myApp/ingredientForm.html' %}
-
-
-                </div>
-        
-                <!-- Another Card -->
-                <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
-                  <h2 class="text-xl font-semibold mb-2">Sauces & Spices</h2>
-
-                  <ul class="list-none space-y-2 category-list">
-                    {% for ing in pantry.sauces %}
-                      <li class="flex justify-between items-center border-b pb-1" data-item="{{ ing.name }}" data-qty="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
-                        <span>{{ ing.name }} - {{ ing.quantity }} {{ ing.unit }}</span>   
-
-                        <div class="space-x-2">
-                          <button class="px-2 py-1 bg-green-500 text-white rounded increment">+</button>
-                          <button class="px-2 py-1 bg-yellow-500 text-white rounded decrement">-</button>
-                          <button class="px-2 py-1 bg-red-500 text-white rounded trash">🗑️</button>
-                        </div>
-
-                      </li>
-                    {% endfor %}
-                  </ul>
-
-                  <!--INSERT INGREDIENT LIST-->
-                  {% include 'myApp/ingredientForm.html' %}
-
-
-                </div>
-        
-            </div>
-                
-        </div>
-
-        <br>
-
-        <!--Third row-->
-        <div class="flex justify-center">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 overflow-y-auto max-h-[80vh] px-2 max-w-5xl">
-                
-                <!-- Meal Card -->
-                <div class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
-                  <h2 class="text-xl font-semibold mb-2">Beverages</h2>
                   
-                  <!-- Ingredient List -->
-                  <ul class="list-none space-y-2 category-list">
-                    {% for ing in pantry.beverage %}
-                      <li class="flex justify-between items-center border-b pb-1" data-item="{{ ing.name }}" data-qty="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
-                        <span>{{ ing.name }} - {{ ing.quantity }} {{ ing.unit }}</span>   
 
-                        <div class="space-x-2">
-                          <button class="px-2 py-1 bg-green-500 text-white rounded increment">+</button>
-                          <button class="px-2 py-1 bg-yellow-500 text-white rounded decrement">-</button>
-                          <button class="px-2 py-1 bg-red-500 text-white rounded trash">🗑️</button>
-                        </div>
-
-                      </li>
-                    {% endfor %}                    
-                  </ul>
-                
-                  <!--INSERT INGREDIENT LIST-->
                   {% include 'myApp/ingredientForm.html' %}
 
 
-                </div>
-        
-                <!-- Another Card -->
-                <div class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
-                  <h2 class="text-xl font-semibold mb-2">Special</h2>
-
-                  <ul class="list-none space-y-2 category-list">
-                    {% for ing in pantry.special %}
-                      <li class="flex justify-between items-center border-b pb-1" data-item="{{ ing.name }}" data-qty="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
-                        <span>{{ ing.name }} - {{ ing.quantity }} {{ ing.unit }}</span>   
-
-                        <div class="space-x-2">
-                          <button class="px-2 py-1 bg-green-500 text-white rounded increment">+</button>
-                          <button class="px-2 py-1 bg-yellow-500 text-white rounded decrement">-</button>
-                          <button class="px-2 py-1 bg-red-500 text-white rounded trash">🗑️</button>
-                        </div>
-
-                      </li>
-                    {% endfor %}
-                  </ul>
-
-                  <!--INSERT INGREDIENT LIST-->
-                  {% include 'myApp/ingredientForm.html' %}
-
-
-                </div>
+              </div>
         
             </div>
+            
+          </div>
+
+          <br>
+          
+          <!--Second row -->
+
+          <div class="flex justify-center">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 overflow-y-auto max-h-[80vh] px-2 max-w-5xl">
+                  
+                  <!-- Meal Card -->
+                  <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
+                    <h2 class="text-xl font-semibold mb-2">Carbs</h2>
                 
-        </div>
+                    <!-- Ingredient List -->
+                    <ul class="list-none space-y-2 category-list">
+                      {% for ing in pantry.carbs %}
+                        <li class="flex justify-between items-center border-b pb-1" data-item="{{ ing.name }}" data-qty="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                          <span>{{ ing.name }} - {{ ing.quantity }} {{ ing.unit }}</span>   
 
-    </div>
+                          <div class="space-x-2">
+                            <button class="px-2 py-1 bg-green-500 text-white rounded increment">+</button>
+                            <button class="px-2 py-1 bg-yellow-500 text-white rounded decrement">-</button>
+                            <button class="px-2 py-1 bg-red-500 text-white rounded trash">🗑️</button>
+                          </div>
 
+                        </li>
+                      {% endfor %}
+                    </ul>
+              
+                    <!--INSERT INGREDIENT LIST-->
+                    {% include 'myApp/ingredientForm.html' %}
+
+
+                  </div>
+          
+                  <!-- Another Card -->
+                  <div  class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
+                    <h2 class="text-xl font-semibold mb-2">Sauces & Spices</h2>
+
+                    <ul class="list-none space-y-2 category-list">
+                      {% for ing in pantry.sauces %}
+                        <li class="flex justify-between items-center border-b pb-1" data-item="{{ ing.name }}" data-qty="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                          <span>{{ ing.name }} - {{ ing.quantity }} {{ ing.unit }}</span>   
+
+                          <div class="space-x-2">
+                            <button class="px-2 py-1 bg-green-500 text-white rounded increment">+</button>
+                            <button class="px-2 py-1 bg-yellow-500 text-white rounded decrement">-</button>
+                            <button class="px-2 py-1 bg-red-500 text-white rounded trash">🗑️</button>
+                          </div>
+
+                        </li>
+                      {% endfor %}
+                    </ul>
+
+                    <!--INSERT INGREDIENT LIST-->
+                    {% include 'myApp/ingredientForm.html' %}
+
+
+                  </div>
+          
+              </div>
+                  
+          </div>
+
+          <br>
+
+          <!--Third row-->
+          <div class="flex justify-center">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 overflow-y-auto max-h-[80vh] px-2 max-w-5xl">
+                  
+                  <!-- Meal Card -->
+                  <div class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
+                    <h2 class="text-xl font-semibold mb-2">Beverages</h2>
+                    
+                    <!-- Ingredient List -->
+                    <ul class="list-none space-y-2 category-list">
+                      {% for ing in pantry.beverage %}
+                        <li class="flex justify-between items-center border-b pb-1" data-item="{{ ing.name }}" data-qty="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                          <span>{{ ing.name }} - {{ ing.quantity }} {{ ing.unit }}</span>   
+
+                          <div class="space-x-2">
+                            <button class="px-2 py-1 bg-green-500 text-white rounded increment">+</button>
+                            <button class="px-2 py-1 bg-yellow-500 text-white rounded decrement">-</button>
+                            <button class="px-2 py-1 bg-red-500 text-white rounded trash">🗑️</button>
+                          </div>
+
+                        </li>
+                      {% endfor %}                    
+                    </ul>
+                  
+                    <!--INSERT INGREDIENT LIST-->
+                    {% include 'myApp/ingredientForm.html' %}
+
+
+                  </div>
+          
+                  <!-- Another Card -->
+                  <div class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full category-container">
+                    <h2 class="text-xl font-semibold mb-2">Special</h2>
+
+                    <ul class="list-none space-y-2 category-list">
+                      {% for ing in pantry.special %}
+                        <li class="flex justify-between items-center border-b pb-1" data-item="{{ ing.name }}" data-qty="{{ ing.quantity }}" data-unit="{{ ing.unit }}">
+                          <span>{{ ing.name }} - {{ ing.quantity }} {{ ing.unit }}</span>   
+
+                          <div class="space-x-2">
+                            <button class="px-2 py-1 bg-green-500 text-white rounded increment">+</button>
+                            <button class="px-2 py-1 bg-yellow-500 text-white rounded decrement">-</button>
+                            <button class="px-2 py-1 bg-red-500 text-white rounded trash">🗑️</button>
+                          </div>
+
+                        </li>
+                      {% endfor %}
+                    </ul>
+
+                    <!--INSERT INGREDIENT LIST-->
+                    {% include 'myApp/ingredientForm.html' %}
+
+
+                  </div>
+          
+              </div>
+                  
+          </div>
+
+      </div>
+  </div>
 
 {% endblock %}

@@ -59,80 +59,89 @@
             overflow: hidden;
             background-position: center;
         }
+        
+        .grid-container {
+            overflow-y: auto; /* inner div scrolls */
+        }
+
+        #scale-wrapper {
+            transform: scale(0.75);
+            transform-origin: top left;
+            width: 133.33%; /* 100 / 0.75 to compensate for scaling */
+        }
     </style>
     
     
-    <br>
+  
 
-    <br>
+    <div id="scale-wrapper">
+      <div class="min-h-screen p-6">
+          <h1 class="text-3xl font-bold mb-6 text-center">🍽️ Your Favorite Meals</h1>
+        
+              <!-- Centering Wrapper -->
+          <div class="flex justify-center">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 overflow-y-auto hide-scrollbar max-h-[106vh] px-2 max-w-5xl">
 
-    <div class="min-h-screen p-6">
-        <h1 class="text-3xl font-bold mb-6 text-center">🍽️ Your Favorite Meals</h1>
-      
-            <!-- Centering Wrapper -->
-        <div class="flex justify-center">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 overflow-y-auto hide-scrollbar max-h-[80vh] px-2 max-w-5xl">
 
+                  {% for recipe in recipes %}
+                    <!-- Meal Card -->
+                    <div id="recipe.{{ recipe.id }}" class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full max-w-3xl">
+                      
+                      <h2 class="text-xl font-semibold mb-2">{{ recipe.recipeTitle }}</h2>
+                      <p class="text-gray-700 mb-4">{{ recipe.recipe|safe }}</p>
 
-                {% for recipe in recipes %}
-                  <!-- Meal Card -->
-                  <div id="recipe.{{ recipe.id }}" class="bg-white rounded-2xl shadow-lg p-5 border border-gray-300 w-full max-w-3xl">
+                      <form data-id="{{ recipe.id }}" class="remove-recipe-form" action="{% url 'removeRecipe' recipe.id %}" method="POST">
+                          {% csrf_token %}
+                          <button type="submit" 
+                              class="flex justify-center mt-6 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md">
+                              Remove Recipe
+                          </button>
+                      </form>
+
+                    </div>
+
+                  {% empty %}
                     
-                    <h2 class="text-xl font-semibold mb-2">{{ recipe.recipeTitle }}</h2>
-                    <p class="text-gray-700 mb-4">{{ recipe.recipe|safe }}</p>
+                      <p class="text-black  w-full flex justify-end"></p>
+                        No recipes saved yet :(
+                      </p>
+                    
+                  {% endfor %}
 
-                    <form data-id="{{ recipe.id }}" class="remove-recipe-form" action="{% url 'removeRecipe' recipe.id %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" 
-                            class="flex justify-center mt-6 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md">
-                            Remove Recipe
-                        </button>
-                    </form>
-
-                  </div>
-
-                {% empty %}
+              </div>
                   
-                    <p class="text-black  w-full flex justify-end"></p>
-                      No recipes saved yet :(
-                    </p>
-                  
-                {% endfor %}
-
-            </div>
-                
+          </div>
         </div>
-      </div>
 
-      <!-- script to remove recipes -->
-      <script>
-        document.querySelectorAll('.remove-recipe-form').forEach(form => {
-            form.addEventListener('submit', function (e) {
-                e.preventDefault(); // stop normal form submit
+        <!-- script to remove recipes -->
+        <script>
+          document.querySelectorAll('.remove-recipe-form').forEach(form => {
+              form.addEventListener('submit', function (e) {
+                  e.preventDefault(); // stop normal form submit
 
-                const recipeId = this.dataset.id;
-                const url = this.action;
-                const csrfToken = this.querySelector('[name=csrfmiddlewaretoken]').value;
+                  const recipeId = this.dataset.id;
+                  const url = this.action;
+                  const csrfToken = this.querySelector('[name=csrfmiddlewaretoken]').value;
 
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': csrfToken,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        document.getElementById(`recipe.${recipeId}`).style.display = 'none';
-                    } else {
-                        console.error('Failed to remove recipe');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                  fetch(url, {
+                      method: 'POST',
+                      headers: {
+                          'X-CSRFToken': csrfToken,
+                          'X-Requested-With': 'XMLHttpRequest'
+                      }
+                  })
+                  .then(response => {
+                      if (response.ok) {
+                          document.getElementById(`recipe.${recipeId}`).style.display = 'none';
+                      } else {
+                          console.error('Failed to remove recipe');
+                      }
+                  })
+                  .catch(error => console.error('Error:', error));
+              });
             });
-          });
-      </script>
-      
+        </script>
+    </div>
       
     
 {% endblock %}

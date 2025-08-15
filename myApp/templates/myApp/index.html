@@ -12,8 +12,15 @@
             overflow: hidden;
             background-position: center;
         }
+        #scale-wrapper {
+            transform: scale(0.75);
+            transform-origin: top left;
+            width: 133.33%; /* 100 / 0.75 to compensate for scaling */
+        }
+
     </style>
 
+<div >
     {% if user.is_authenticated %}
 
         <div class="container">
@@ -30,4 +37,5 @@
 
     {% endif %}
 
+</div>
 {% endblock %}
