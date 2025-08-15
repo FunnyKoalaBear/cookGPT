@@ -268,8 +268,8 @@ def generate_recipe(ingredients):
     return response.choices[0].message.content
 ```
 
-### Getting an OpenAI API Key
-1. Visit [OpenAI's website](https://platform.openai.com/api-keys)
+### Getting an AI API Key
+1. Visit [OpenRouter's website]([https://platform.openai.com/api-keys](https://openrouter.ai/))
 2. Create an account or log in
 3. Navigate to API Keys section
 4. Create a new API key
