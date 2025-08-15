@@ -44,13 +44,6 @@ CookGPT is a Django-powered web application that helps users manage their pantry
 - **Database**: SQLite (default Django database)
 - **Authentication**: Django's built-in user authentication system
 
-## 📋 Prerequisites
-
-- Python 3.8 or higher
-- pip (Python package installer)
-- Virtual environment (recommended)
-- OpenAI API key (for AI-powered features)
-
 ## 🗄️ Database Models
 
 ### User Model
@@ -105,6 +98,13 @@ The pantry system allows users to:
 - **Dietary Preferences**: Customize suggestions based on dietary restrictions and preferences
 - **Nutritional Information**: Get nutritional insights for suggested recipes
 - **Cooking Tips**: AI-generated cooking tips and techniques for better results
+
+## 📋 Prerequisites
+
+- Python 3.8 or higher
+- pip (Python package installer)
+- Virtual environment (recommended)
+- OpenAI API key (for AI-powered features)
 
 ## 🚀 Installation & Setup
 
