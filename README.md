@@ -1,6 +1,6 @@
 # 🍽️ CookGPT - Smart Recipe & Pantry Management System
 
-CookGPT is a Django-powered web application that helps users manage their pantry inventory and discover meal recipes based on available ingredients. The application features an intuitive interface for tracking food items across different categories and planning meals efficiently.
+CookGPT is a Django-powered web application that helps users manage their pantry inventory and discover meal recipes based on available ingredients. The application features an intuitive interface for tracking food items across different categories and planning meals efficiently, with AI-powered recipe suggestions using OpenAI's GPT technology.
 
 ## ✨ Features
 
@@ -18,9 +18,11 @@ CookGPT is a Django-powered web application that helps users manage their pantry
 
 ### 🍳 Recipe System
 - **Custom Recipes**: Create and save personal recipes
+- **AI-Powered Suggestions**: Get recipe recommendations using OpenAI GPT based on your pantry ingredients
 - **Ingredient Integration**: Link recipes with pantry ingredients
 - **Step-by-Step Instructions**: Detailed cooking instructions with numbered steps
 - **User-Specific Collections**: Each user maintains their own recipe collection
+- **Smart Meal Planning**: AI-assisted meal planning based on available ingredients
 
 ### 👤 User Management
 - **Authentication System**: Secure user registration and login
@@ -36,6 +38,7 @@ CookGPT is a Django-powered web application that helps users manage their pantry
 ## 🛠️ Technology Stack
 
 - **Backend**: Django 5.1.7 (Python web framework)
+- **AI Integration**: OpenAI GPT API for recipe suggestions and meal planning
 - **Frontend**: HTML5, CSS3, JavaScript
 - **Styling**: Tailwind CSS
 - **Database**: SQLite (default Django database)
@@ -46,6 +49,7 @@ CookGPT is a Django-powered web application that helps users manage their pantry
 - Python 3.8 or higher
 - pip (Python package installer)
 - Virtual environment (recommended)
+- OpenAI API key (for AI-powered features)
 
 ## 🚀 Installation & Setup
 
@@ -68,21 +72,36 @@ source .venv/bin/activate
 
 ### 3. Install Dependencies
 ```bash
-pip install django
+pip install django openai
 ```
 
-### 4. Database Setup
+### 4. Set Up OpenAI API Key
+Create a `.env` file in your project root and add your OpenAI API key:
+```bash
+OPENAI_API_KEY=your-openai-api-key-here
+```
+
+Or set it as an environment variable:
+```bash
+# Windows
+set OPENAI_API_KEY=your-openai-api-key-here
+
+# macOS/Linux
+export OPENAI_API_KEY=your-openai-api-key-here
+```
+
+### 5. Database Setup
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 5. Create Superuser (Optional)
+### 6. Create Superuser (Optional)
 ```bash
 python manage.py createsuperuser
 ```
 
-### 6. Run Development Server
+### 7. Run Development Server
 ```bash
 python manage.py runserver
 ```
@@ -117,8 +136,10 @@ cookGPT/
 │   ├── views.py             # Application logic
 │   ├── urls.py              # App URL routing
 │   └── admin.py             # Django admin configuration
+├── api.py                   # OpenAI API integration
 ├── db.sqlite3               # SQLite database
 ├── manage.py                # Django management script
+├── .env                     # Environment variables (create this)
 └── README.md                # This file
 ```
 
@@ -170,13 +191,21 @@ The pantry system allows users to:
 - User-specific data isolation
 - Password protection
 
+### AI-Powered Recipe Suggestions
+- **Smart Recommendations**: Generate recipe suggestions based on available pantry ingredients
+- **Ingredient Optimization**: AI analyzes your pantry to suggest recipes that use the most ingredients
+- **Dietary Preferences**: Customize suggestions based on dietary restrictions and preferences
+- **Nutritional Information**: Get nutritional insights for suggested recipes
+- **Cooking Tips**: AI-generated cooking tips and techniques for better results
+
 ## 🚀 Usage
 
 1. **Register/Login**: Create an account or log in to access your personal pantry
 2. **Manage Pantry**: Add ingredients to different categories with quantities and units
-3. **Create Recipes**: Design custom recipes using your pantry ingredients
-4. **Plan Meals**: Use the meal planning feature to organize your cooking
-5. **Track Inventory**: Monitor ingredient quantities and update as needed
+3. **Get AI Suggestions**: Use the AI-powered feature to get recipe recommendations based on your pantry
+4. **Create Recipes**: Design custom recipes using your pantry ingredients
+5. **Plan Meals**: Use the meal planning feature to organize your cooking
+6. **Track Inventory**: Monitor ingredient quantities and update as needed
 
 ## 🔧 Configuration
 
@@ -186,12 +215,65 @@ Key settings in `cookGPT/settings.py`:
 - **ALLOWED_HOSTS**: Configure for production deployment
 - **SECRET_KEY**: Change for production (keep secure)
 - **DATABASE**: Currently configured for SQLite
+- **OPENAI_API_KEY**: Set your OpenAI API key for AI features
+
+### Environment Variables
+For security, use environment variables for sensitive data:
+```python
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'your-fallback-secret-key')
+```
 
 ### Static Files
 Static files are served from `myApp/static/myApp/`:
 - CSS stylesheets
 - JavaScript files
 - Images and media
+
+## 🤖 AI Integration
+
+### OpenAI Features
+The application integrates with OpenAI's GPT API to provide:
+
+- **Recipe Generation**: Create recipes based on available ingredients
+- **Meal Planning**: Smart meal suggestions for the week
+- **Ingredient Substitutions**: Alternative ingredients when items are missing
+- **Cooking Instructions**: Detailed step-by-step cooking guidance
+- **Nutritional Analysis**: Health insights for meals and ingredients
+
+### API Usage Example
+```python
+from openai import OpenAI
+import os
+
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+
+def generate_recipe(ingredients):
+    prompt = f"Create a recipe using these ingredients: {', '.join(ingredients)}"
+    
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful cooking assistant."},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=500
+    )
+    
+    return response.choices[0].message.content
+```
+
+### Getting an OpenAI API Key
+1. Visit [OpenAI's website](https://platform.openai.com/api-keys)
+2. Create an account or log in
+3. Navigate to API Keys section
+4. Create a new API key
+5. Copy and securely store your API key
 
 ## 🤝 Contributing
 
