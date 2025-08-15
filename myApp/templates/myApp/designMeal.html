@@ -26,15 +26,19 @@
 
 
         #loading {
-            display: none;        /* hidden by default */
-            position: fixed;      /* relative to viewport */
-            inset: 0;             /* top:0; right:0; bottom:0; left:0; */
-            display: none;        /* keep hidden initially */
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;        /* above everything */
+            display: none;              /* hidden initially */
+            position: fixed;            /* fixed to viewport */
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;              /* flex container */
+            justify-content: center;    /* horizontal center */
+            align-items: center;        /* vertical center */
+            z-index: 1000;              /* above everything */
+            background: rgba(0, 0, 0, 0.3);
         }
-        /* #loading img {
+        #loading img {
             width: 8rem;
             height: 8rem;
         }
@@ -42,7 +46,7 @@
             color: white;
             margin-top: 1rem;
             font-size: 1.25rem;
-        } */
+        }
     </style>
 
     <style>

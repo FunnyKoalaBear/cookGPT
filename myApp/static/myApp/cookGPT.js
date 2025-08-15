@@ -25,6 +25,7 @@ const ingredients = [];
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    // js to select ingredients 
     document.querySelectorAll('.ingredient-btn').forEach(btn => {
 
         btn.addEventListener('click', function() {
@@ -52,7 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-
+    
+    //js to send query to make recipe 
     document.addEventListener("click", async function(event) {
 
         const query = document.getElementById("query")?.value || "";
@@ -63,7 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (ingredients.length !== 0 & query.length > 2) {
 
                 //hiding prompt and ingredient box and heading
-                document.getElementById("beforeGeneration").style.display = "none";
+                const beforeGen = document.getElementById("beforeGeneration");
+                beforeGen.style.display = "none";
 
 
                 //loading animation
@@ -71,6 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 const heading = document.querySelector("#heading");
                 loading.style.display = "block";
                 heading.style.display = "none";
+
+                //to fix the loading gif on top left screen issue
+                loading.style.display = 'flex'; 
+                beforeGen.style.display = 'none';
 
 
                 try {
