@@ -6,7 +6,15 @@ In addition to inventory management, CookGPT leverages AI-powered recipe suggest
 
 ## ✨ Features
 
-### 🥗 Pantry Management
+### 🥗 Recipe System
+- **Custom Recipes**: Create and save personal recipes
+- **AI-Powered Suggestions**: Get recipe recommendations using OpenRouter GPT based on your pantry ingredients
+- **Ingredient Integration**: Link recipes with pantry ingredients
+- **Step-by-Step Instructions**: Detailed cooking instructions with numbered steps
+- **User-Specific Collections**: Each user maintains their own recipe collection
+- **Smart Meal Planning**: AI-assisted meal planning based on available ingredients
+
+### 🍳 Pantry Management
 - **Categorized Inventory**: Organize ingredients into 6 categories:
   - Vegies & Fruits
   - Proteins
@@ -17,14 +25,6 @@ In addition to inventory management, CookGPT leverages AI-powered recipe suggest
 - **Quantity Tracking**: Track ingredient quantities with various units (kg, g, ml, l, tsp, tbsp, cups, pieces, slices)
 - **Interactive Controls**: Add, edit, and remove pantry items with intuitive +/- buttons
 - **Real-time Updates**: Dynamic JavaScript interface for seamless pantry management
-
-### 🍳 Recipe System
-- **Custom Recipes**: Create and save personal recipes
-- **AI-Powered Suggestions**: Get recipe recommendations using OpenRouter GPT based on your pantry ingredients
-- **Ingredient Integration**: Link recipes with pantry ingredients
-- **Step-by-Step Instructions**: Detailed cooking instructions with numbered steps
-- **User-Specific Collections**: Each user maintains their own recipe collection
-- **Smart Meal Planning**: AI-assisted meal planning based on available ingredients
 
 ### 👤 User Management
 - **Authentication System**: Secure user registration and login
