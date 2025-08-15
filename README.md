@@ -1,6 +1,8 @@
 # 🍽️ CookGPT - Smart Recipe & Pantry Management System
 
-CookGPT is a Django-powered web application that helps users manage their pantry inventory and discover meal recipes based on available ingredients. The application features an intuitive interface for tracking food items across different categories and planning meals efficiently, with AI-powered recipe suggestions using OpenAI's GPT technology.
+CookGPT is a Django-powered web application designed to help users efficiently manage their pantry inventory and discover meal recipes based on the ingredients they already have at home. The platform provides an intuitive and interactive interface for tracking food items across multiple categories such as vegetables and fruits, proteins, carbs, sauces and spices, beverages, and special items. Users can add, edit, and remove ingredients, track quantities with various units of measurement, and organize their pantry for easy access. 
+
+In addition to inventory management, CookGPT leverages AI-powered recipe suggestions using OpenAI's GPT technology to generate personalized meal ideas based on the current pantry contents. The system can suggest ingredient substitutions, optimize recipes to use what is available, and provide detailed step-by-step cooking instructions. With user-specific recipe collections, AI-assisted meal planning, and a dynamic, responsive interface, CookGPT aims to simplify meal preparation, reduce food waste, and enhance the overall cooking experience for every user.
 
 ## ✨ Features
 
