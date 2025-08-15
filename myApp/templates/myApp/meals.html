@@ -97,33 +97,33 @@
         </div>
       </div>
 
-          <!-- script to remove recipes -->
-     <script>
-      document.querySelectorAll('.remove-recipe-form').forEach(form => {
-          form.addEventListener('submit', function (e) {
-              e.preventDefault(); // stop normal form submit
+      <!-- script to remove recipes -->
+      <script>
+        document.querySelectorAll('.remove-recipe-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault(); // stop normal form submit
 
-              const recipeId = this.dataset.id;
-              const url = this.action;
-              const csrfToken = this.querySelector('[name=csrfmiddlewaretoken]').value;
+                const recipeId = this.dataset.id;
+                const url = this.action;
+                const csrfToken = this.querySelector('[name=csrfmiddlewaretoken]').value;
 
-              fetch(url, {
-                  method: 'POST',
-                  headers: {
-                      'X-CSRFToken': csrfToken,
-                      'X-Requested-With': 'XMLHttpRequest'
-                  }
-              })
-              .then(response => {
-                  if (response.ok) {
-                      document.getElementById(`recipe.${recipeId}`).style.display = 'none';
-                  } else {
-                      console.error('Failed to remove recipe');
-                  }
-              })
-              .catch(error => console.error('Error:', error));
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById(`recipe.${recipeId}`).style.display = 'none';
+                    } else {
+                        console.error('Failed to remove recipe');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
           });
-        });
       </script>
       
       

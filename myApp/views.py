@@ -322,7 +322,11 @@ def saveRecipe(request):
                 recipe = recipe
             )
             
-            return JsonResponse({"status": "success", "Recipe Title": myRecipe.recipeTitle})
+            return JsonResponse({
+                "status": "success", 
+                "Recipe Title": myRecipe.recipeTitle,
+                "recipeID": myRecipe.id
+                })
         
         except Exception as e: 
             return JsonResponse({"status": "error", "message": str(e)}, status=400)

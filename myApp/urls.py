@@ -18,8 +18,7 @@ urlpatterns = [
     path('myApp/saveRecipe/', views.saveRecipe, name='saveRecipe'),
     path("meals", views.meals, name="meals"),
     path('admin/', admin.site.urls),
-    path("remove-recipe/<int:recipeID>/", views.removeRecipe, name="removeRecipe"),
-    
+    path("remove-recipe/<int:recipeID>/", views.removeRecipe, name="removeRecipe"),    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
