@@ -154,42 +154,73 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", async function(event) {
 
         const target = event.target;
+        const isSaved = target.dataset.saved === "true"; ///checks if currently saved
 
-        if (target.id === "saveRecipe") {
+        if (!isSaved) {
+            if (target.id === "saveRecipe") {
             
-            const recipeTitle = document.getElementById("recipeTitle").innerHTML;  // forms strings
-            const recipe = document.getElementById("recipe").innerHTML;
-            console.log("Saving recipe:", recipeTitle);
-            console.log("Recipe content:", recipe);
+                const recipeTitle = document.getElementById("recipeTitle").innerHTML;  // forms strings
+                const recipe = document.getElementById("recipe").innerHTML;
+                console.log("Saving recipe:", recipeTitle);
+                console.log("Recipe content:", recipe);
 
-            //changing button color after saving 
-            target.style.backgroundColor = "blue";
-            target.style.color = "white";
-            target.innerHTML = "Saved!"
+                //changing button color after saving 
+                target.style.backgroundColor = "blue";
+                target.style.color = "white";
+                target.innerHTML = "Saved!"
+                target.dataset.saved = "true";
 
-            //post logic 
-            try {
-                const response = await fetch("/myApp/saveRecipe/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRFToken": csrftoken
-                    },
-                    body: JSON.stringify({
-                        recipeTitle: recipeTitle,
-                        recipe: recipe
-                    })
-                });
+                //post logic 
+                try {
+                    const response = await fetch("/myApp/saveRecipe/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": csrftoken
+                        },
+                        body: JSON.stringify({
+                            recipeTitle: recipeTitle,
+                            recipe: recipe
+                        })
+                    });
 
-                if (response.ok) {
-                    const result = await response.json();
-                    console.log("Recipe saved successfully:", result);
-                } else {
-                    console.error("Error saving recipe:", response.statusText);
+                    if (response.ok) {
+                        const result = await response.json();
+                        console.log("Recipe saved successfully:", result);
+                    } else {
+                        console.error("Error saving recipe:", response.statusText);
+                    }
+                } catch (error) {
+                    console.error("Error saving recipe:", error);
                 }
-            } catch (error) {
-                console.error("Error saving recipe:", error);
             }
+        } else {
+            // --- Revert button to original state ---
+            target.style.backgroundColor = "#16a34a"; // Tailwind green-600
+            target.style.color = "white";
+            target.innerHTML = "Save Recipe";
+            target.dataset.saved = "false"; // mark as unsaved
+            console.log("Recipe unsaved");
+            //sending request to delete the saved meal 
+            // const recipeId = this.dataset.id;
+            // const url = this.action;
+            // const csrfToken = this.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            // fetch(url, {
+            //     method: 'POST',
+            //     headers: {
+            //         'X-CSRFToken': csrfToken,
+            //         'X-Requested-With': 'XMLHttpRequest'
+            //     }
+            // })
+            // .then(response => {
+            //     if (response.ok) {
+            //         document.getElementById(`recipe.${recipeId}`).style.display = 'none';
+            //     } else {
+            //         console.error('Failed to remove recipe');
+            //     }
+            // })
+            // .catch(error => console.error('Error:', error));
         }
 
     });
