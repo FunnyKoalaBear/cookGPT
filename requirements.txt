@@ -1,0 +1,17 @@
+# 🍽️ CookGPT Requirements
+# Python packages for the Smart Recipe & Pantry Management System
+
+# Web Framework
+Django==5.2.5
+
+# AI Integration  
+openai==1.99.9
+
+# Environment & Configuration
+python-dotenv==1.1.1
+
+# Standard Library Extensions (included with Python)
+# json - JSON handling
+# os - Operating system interface  
+# datetime - Date and time utilities
+# pathlib - Path manipulation (used in settings)
