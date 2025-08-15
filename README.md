@@ -35,6 +35,13 @@ CookGPT is a Django-powered web application that helps users manage their pantry
 - **Visual Feedback**: Color-coded buttons and intuitive controls
 - **Custom Styling**: Attractive background and modern design elements
 
+## Distinctiveness and Complexity
+
+CookGPT is a unique project because it combines AI-powered recipe generation with real-time, user-specific pantry management. The system communicates with OpenAI’s GPT API to suggest recipes based on the exact ingredients a user has, handling ingredient substitutions, optimization, and dietary preferences. Integrating AI with a dynamic backend and frontend required careful planning and coordination, making the project more advanced than typical recipe apps.
+
+The project also demonstrates full-stack complexity. Users can add, remove, and update pantry items across multiple categories with different units, all reflected immediately through JavaScript-powered interactions. Django models handle complex many-to-many relationships between users, ingredients, and recipes while maintaining data integrity. The combination of AI integration, interactive frontend, and personalized user data makes CookGPT both distinctive and technically challenging.
+
+
 ## 🛠️ Technology Stack
 
 - **Backend**: Django 5.1.7 (Python web framework)
