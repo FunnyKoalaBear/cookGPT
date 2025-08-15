@@ -236,6 +236,7 @@ def updatePantry(request):
             # getting/creating the ingredient
             item, created = Ingredient.objects.get_or_create(
                 name=item,
+                user=user,
                 defaults={
                     "category": category,
                     "quantity": 0, #add quantity later 
