@@ -51,6 +51,61 @@ CookGPT is a Django-powered web application that helps users manage their pantry
 - Virtual environment (recommended)
 - OpenAI API key (for AI-powered features)
 
+## 🗄️ Database Models
+
+### User Model
+- Extends Django's AbstractUser
+- Stores user authentication information
+
+### Ingredient Model
+- **Fields**: name, category, quantity, unit_of_measurement
+- **Categories**: vegies, proteins, carbs, sauces, special, beverage
+- **Units**: g, kg, ml, l, tsp, tbsp, cup, piece, slice
+
+### Pantry Model
+- Links users to their ingredient collections
+- Separate ManyToMany fields for each category
+- User-specific pantry management
+
+### MyRecipe Model
+- User-specific recipe storage
+- Links to ingredient collections
+- Recipe name and user association
+
+### InstructionStep Model
+- Step-by-step cooking instructions
+- Ordered by step number
+- Linked to specific recipes
+
+## 🎯 Key Features Explained
+
+### Pantry Management System
+The pantry system allows users to:
+- Add ingredients with specific quantities and units
+- Organize items by food categories
+- Update quantities with +/- buttons
+- Remove items with trash button
+- View all items in an organized grid layout
+
+### Interactive JavaScript
+- Real-time form submission without page reload
+- Dynamic list updates
+- Category-specific ingredient management
+- Responsive user interface controls
+
+### User Authentication
+- Secure registration and login system
+- Session-based authentication
+- User-specific data isolation
+- Password protection
+
+### AI-Powered Recipe Suggestions
+- **Smart Recommendations**: Generate recipe suggestions based on available pantry ingredients
+- **Ingredient Optimization**: AI analyzes your pantry to suggest recipes that use the most ingredients
+- **Dietary Preferences**: Customize suggestions based on dietary restrictions and preferences
+- **Nutritional Information**: Get nutritional insights for suggested recipes
+- **Cooking Tips**: AI-generated cooking tips and techniques for better results
+
 ## 🚀 Installation & Setup
 
 ### 1. Clone the Repository
@@ -142,61 +197,6 @@ cookGPT/
 ├── .env                     # Environment variables (create this)
 └── README.md                # This file
 ```
-
-## 🗄️ Database Models
-
-### User Model
-- Extends Django's AbstractUser
-- Stores user authentication information
-
-### Ingredient Model
-- **Fields**: name, category, quantity, unit_of_measurement
-- **Categories**: vegies, proteins, carbs, sauces, special, beverage
-- **Units**: g, kg, ml, l, tsp, tbsp, cup, piece, slice
-
-### Pantry Model
-- Links users to their ingredient collections
-- Separate ManyToMany fields for each category
-- User-specific pantry management
-
-### MyRecipe Model
-- User-specific recipe storage
-- Links to ingredient collections
-- Recipe name and user association
-
-### InstructionStep Model
-- Step-by-step cooking instructions
-- Ordered by step number
-- Linked to specific recipes
-
-## 🎯 Key Features Explained
-
-### Pantry Management System
-The pantry system allows users to:
-- Add ingredients with specific quantities and units
-- Organize items by food categories
-- Update quantities with +/- buttons
-- Remove items with trash button
-- View all items in an organized grid layout
-
-### Interactive JavaScript
-- Real-time form submission without page reload
-- Dynamic list updates
-- Category-specific ingredient management
-- Responsive user interface controls
-
-### User Authentication
-- Secure registration and login system
-- Session-based authentication
-- User-specific data isolation
-- Password protection
-
-### AI-Powered Recipe Suggestions
-- **Smart Recommendations**: Generate recipe suggestions based on available pantry ingredients
-- **Ingredient Optimization**: AI analyzes your pantry to suggest recipes that use the most ingredients
-- **Dietary Preferences**: Customize suggestions based on dietary restrictions and preferences
-- **Nutritional Information**: Get nutritional insights for suggested recipes
-- **Cooking Tips**: AI-generated cooking tips and techniques for better results
 
 ## 🚀 Usage
 
