@@ -2,7 +2,7 @@
 
 CookGPT is a Django-powered web application designed to help users efficiently manage their pantry inventory and discover meal recipes based on the ingredients they already have at home. The platform provides an intuitive and interactive interface for tracking food items across multiple categories such as vegetables and fruits, proteins, carbs, sauces and spices, beverages, and special items. Users can add, edit, and remove ingredients, track quantities with various units of measurement, and organize their pantry for easy access. 
 
-In addition to inventory management, CookGPT leverages AI-powered recipe suggestions using OpenAI's GPT technology to generate personalized meal ideas based on the current pantry contents. The system can suggest ingredient substitutions, optimize recipes to use what is available, and provide detailed step-by-step cooking instructions. With user-specific recipe collections, AI-assisted meal planning, and a dynamic, responsive interface, CookGPT aims to simplify meal preparation, reduce food waste, and enhance the overall cooking experience for every user.
+In addition to inventory management, CookGPT leverages AI-powered recipe suggestions using OpenRouter GPT technology to generate personalized meal ideas based on the current pantry contents. The system can suggest ingredient substitutions, optimize recipes to use what is available, and provide detailed step-by-step cooking instructions. With user-specific recipe collections, AI-assisted meal planning, and a dynamic, responsive interface, CookGPT aims to simplify meal preparation, reduce food waste, and enhance the overall cooking experience for every user.
 
 ## ✨ Features
 
@@ -20,7 +20,7 @@ In addition to inventory management, CookGPT leverages AI-powered recipe suggest
 
 ### 🍳 Recipe System
 - **Custom Recipes**: Create and save personal recipes
-- **AI-Powered Suggestions**: Get recipe recommendations using OpenAI GPT based on your pantry ingredients
+- **AI-Powered Suggestions**: Get recipe recommendations using OpenRouter GPT based on your pantry ingredients
 - **Ingredient Integration**: Link recipes with pantry ingredients
 - **Step-by-Step Instructions**: Detailed cooking instructions with numbered steps
 - **User-Specific Collections**: Each user maintains their own recipe collection
@@ -39,7 +39,7 @@ In addition to inventory management, CookGPT leverages AI-powered recipe suggest
 
 ## Distinctiveness and Complexity
 
-CookGPT is a unique project because it combines AI-powered recipe generation with real-time, user-specific pantry management. The system communicates with OpenAI’s GPT API to suggest recipes based on the exact ingredients a user has, handling ingredient substitutions, optimization, and dietary preferences. Integrating AI with a dynamic backend and frontend required careful planning and coordination, making the project more advanced than typical recipe apps.
+CookGPT is a unique project because it combines AI-powered recipe generation with real-time, user-specific pantry management. The system communicates with OpenRouter’s GPT API to suggest recipes based on the exact ingredients a user has, handling ingredient substitutions, optimization, and dietary preferences. Integrating AI with a dynamic backend and frontend required careful planning and coordination, making the project more advanced than typical recipe apps.
 
 The project also demonstrates full-stack complexity. Users can add, remove, and update pantry items across multiple categories with different units, all reflected immediately through JavaScript-powered interactions. Django models handle complex many-to-many relationships between users, ingredients, and recipes while maintaining data integrity. The combination of AI integration, interactive frontend, and personalized user data makes CookGPT both distinctive and technically challenging.
 
@@ -113,7 +113,7 @@ The pantry system allows users to:
 - Python 3.8 or higher
 - pip (Python package installer)
 - Virtual environment (recommended)
-- OpenAI API key (for AI-powered features)
+- OpenRouter API key (for AI-powered features)
 
 ## 🚀 Installation & Setup
 
@@ -139,7 +139,7 @@ source .venv/bin/activate
 pip install django openai
 ```
 
-### 4. Set Up OpenAI API Key
+### 4. Set Up OpenRouter API Key
 Create a `.env` file in your project root and add your OpenAI API key:
 ```bash
 OPENAI_API_KEY=your-openai-api-key-here
@@ -200,7 +200,7 @@ cookGPT/
 │   ├── views.py             # Application logic
 │   ├── urls.py              # App URL routing
 │   └── admin.py             # Django admin configuration
-├── api.py                   # OpenAI API integration
+├── api.py                   # OpenRouter API integration
 ├── db.sqlite3               # SQLite database
 ├── manage.py                # Django management script
 ├── .env                     # Environment variables (create this)
@@ -224,7 +224,7 @@ Key settings in `cookGPT/settings.py`:
 - **ALLOWED_HOSTS**: Configure for production deployment
 - **SECRET_KEY**: Change for production (keep secure)
 - **DATABASE**: Currently configured for SQLite
-- **OPENAI_API_KEY**: Set your OpenAI API key for AI features
+- **OPENAI_API_KEY**: Set your OpenRouter API key for AI features
 
 ### Environment Variables
 For security, use environment variables for sensitive data:
@@ -246,8 +246,8 @@ Static files are served from `myApp/static/myApp/`:
 
 ## 🤖 AI Integration
 
-### OpenAI Features
-The application integrates with OpenAI's GPT API to provide:
+### OpenRouter Features
+The application integrates with OpenRouter's GPT API to provide:
 
 - **Recipe Generation**: Create recipes based on available ingredients
 - **Meal Planning**: Smart meal suggestions for the week
