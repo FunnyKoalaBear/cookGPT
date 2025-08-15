@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-qs$*+z8z&8vdu7vri88j4zr+@%qeemlw8mgx$vtjp0it2ybgue
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1", 
+    "localhost",
+    ".ngrok-free.app"
+]
 
 
 # Application definition
@@ -48,6 +52,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://bce3fd911530.ngrok-free.app",  # replace with your current ngrok URL
 ]
 
 ROOT_URLCONF = 'cookGPT.urls'
