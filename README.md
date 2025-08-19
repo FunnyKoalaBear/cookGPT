@@ -1,15 +1,20 @@
 # 🍽️ CookGPT - Smart Recipe & Pantry Management System
 
-CookGPT is a Django-powered web application that helps users manage their pantry inventory and discover meal recipes based on available ingredients. The application features an intuitive interface for tracking food items across different categories and planning meals efficiently, with AI-powered recipe suggestions using OpenAI's GPT technology.
+CookGPT is a full-stack Django web application designed to help users efficiently manage their kitchen pantry and discover recipes tailored to the ingredients they already have. Unlike simple recipe websites, CookGPT combines inventory tracking, custom recipe management, and AI-powered meal planning into one cohesive platform. Users can register for accounts, maintain their own personalized pantries, create recipes, and receive intelligent recipe suggestions from OpenAI’s GPT model.
+
+The application provides a responsive and modern interface built with Tailwind CSS, ensuring usability across devices. Pantry items are categorized for clarity, quantities are tracked with multiple measurement units, and interactive JavaScript updates make managing the pantry seamless. On the recipe side, users can write their own recipes or rely on CookGPT’s AI integration to generate creative meal ideas and cooking instructions. The platform therefore bridges the gap between pantry management and meal planning, transforming the way users organize their food and cook.
 
 ## Distinctiveness and Complexity
 
-This project is distinct from the other CS50W projects because ...
-[several paragraphs, explicitly contrasting with Project 2 and Project 4]
+CookGPT satisfies the distinctiveness requirement because it is fundamentally different from the course’s existing projects. While Project 2 (Commerce) is focused on buying and selling items in a marketplace, and Project 4 (Network) emphasizes social interactions between users, CookGPT does neither. It is not an e-commerce platform, nor is it a social network. Instead, it is a pantry and recipe management system enhanced by AI-powered recommendations, a use case not covered in any prior project. The core concept revolves around optimizing a user’s cooking experience by connecting their available ingredients with intelligent meal planning, which clearly distinguishes it from other course assignments.
 
-The complexity arises from ...
-[several paragraphs: AI integration, multiple interlinked models, dynamic JS, responsive UI, user-specific data handling, etc.]
+The project also achieves complexity well beyond earlier projects. At its foundation, CookGPT defines several interrelated database models — users, ingredients, pantries, recipes, and step-by-step instructions — and connects them through relationships such as ManyToMany fields. Each user maintains an isolated pantry and recipe collection, which requires careful authentication and session handling. On the frontend, the pantry interface incorporates dynamic JavaScript controls that allow items to be added, edited, and removed without refreshing the page, ensuring a smooth and interactive experience. This combination of real-time updates with Django’s backend goes beyond the simpler CRUD implementations of previous projects.
 
+Complexity is further increased through the integration of external AI services. By connecting to the OpenAI API, the application can generate recipes, suggest substitutions, provide nutritional insights, and even assist with weekly meal planning. This layer of AI-powered functionality requires handling API calls securely, parsing and formatting the responses, and seamlessly integrating them into the user’s workflow. Such an integration adds significant technical depth compared to prior projects that rely only on Django’s built-in capabilities.
+
+In addition, the application’s responsive design with Tailwind CSS ensures that it functions smoothly on both desktop and mobile devices, which introduces challenges in layout and usability that were not present in earlier projects. The system also requires proper handling of environment variables (for API keys and secret settings), which reflects real-world deployment concerns.
+
+Altogether, the project demonstrates both distinctiveness — by targeting a problem domain not addressed in CS50W’s set projects — and complexity — by combining advanced Django features, dynamic JavaScript interactivity, and external AI integration into a single cohesive application. CookGPT is therefore a meaningful step beyond the earlier assignments, both in scope and technical implementation.
 
 ## ✨ Features
 
