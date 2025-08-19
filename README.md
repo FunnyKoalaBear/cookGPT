@@ -2,6 +2,15 @@
 
 CookGPT is a Django-powered web application that helps users manage their pantry inventory and discover meal recipes based on available ingredients. The application features an intuitive interface for tracking food items across different categories and planning meals efficiently, with AI-powered recipe suggestions using OpenAI's GPT technology.
 
+## Distinctiveness and Complexity
+
+This project is distinct from the other CS50W projects because ...
+[several paragraphs, explicitly contrasting with Project 2 and Project 4]
+
+The complexity arises from ...
+[several paragraphs: AI integration, multiple interlinked models, dynamic JS, responsive UI, user-specific data handling, etc.]
+
+
 ## ✨ Features
 
 ### 🥗 Pantry Management
@@ -255,7 +264,7 @@ client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 def generate_recipe(ingredients):
     prompt = f"Create a recipe using these ingredients: {', '.join(ingredients)}"
-    
+
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -264,7 +273,7 @@ def generate_recipe(ingredients):
         ],
         max_tokens=500
     )
-    
+
     return response.choices[0].message.content
 ```
 
